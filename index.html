@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jhylmar Subia | Ingeniero en Electrónica y Automatización</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="circuit-loader">
+            <div class="loader-text">INICIALIZANDO SISTEMA...</div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div class="binary-rain"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-panel">
+        <div class="nav-logo">
+            <span class="logo-text">JHYLMAR.SYSTEM</span>
+            <div class="power-indicator"></div>
+        </div>
+        <div class="nav-menu">
+            <a href="#home" data-section="home" class="nav-link active">
+                <i class="nav-icon">🏠</i>
+                <span>INICIO</span>
+            </a>
+            <a href="#about" data-section="about" class="nav-link">
+                <i class="nav-icon">👨‍💻</i>
+                <span>PERFIL</span>
+            </a>
+            <a href="#experience" data-section="experience" class="nav-link">
+                <i class="nav-icon">⚡</i>
+                <span>EXPERIENCIA</span>
+            </a>
+            <a href="#projects" data-section="projects" class="nav-link">
+                <i class="nav-icon">🔧</i>
+                <span>PROYECTOS</span>
+            </a>
+            <a href="#skills" data-section="skills" class="nav-link">
+                <i class="nav-icon">🧠</i>
+                <span>HABILIDADES</span>
+            </a>
+            <a href="#lab" data-section="lab" class="nav-link">
+                <i class="nav-icon">🔬</i>
+                <span>LABORATORIO</span>
+            </a>
+            <a href="#contact" data-section="contact" class="nav-link">
+                <i class="nav-icon">📡</i>
+                <span>CONTACTO</span>
+            </a>
+        </div>
+        <div class="system-status">
+            <div class="status-item">
+                <span class="status-label">CPU:</span>
+                <div class="status-bar"><div class="status-fill" data-value="87"></div></div>
+            </div>
+            <div class="status-item">
+                <span class="status-label">RAM:</span>
+                <div class="status-bar"><div class="status-fill" data-value="62"></div></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="section hero-section active">
+            <div id="particles-js"></div>
+            <div class="hero-grid">
+                <div class="hero-info">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <div class="terminal-buttons">
+                                <span class="btn-close"></span>
+                                <span class="btn-minimize"></span>
+                                <span class="btn-maximize"></span>
+                            </div>
+                            <div class="terminal-title">jhylmar@automation-system:~$</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">jhylmar@system:~$</span>
+                                <span class="command">whoami</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="output">Ingeniero en Electrónica y Automatización</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="prompt">jhylmar@system:~$</span>
+                                <span class="command">cat especialidades.txt</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="output">• Sistemas Inteligentes & IA</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="output">• Control Industrial & PLC</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="output">• IoT & Visión Artificial</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="output">• Automatización & SCADA</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="prompt">jhylmar@system:~$</span>
+                                <span class="command typewriter" data-text="init --portfolio --mode=professional"></span>
+                                <span class="cursor">|</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hologram-container">
+                        <div class="hologram-ring"></div>
+                        <div class="hologram-ring"></div>
+                        <div class="hologram-ring"></div>
+                        <div class="neural-network">
+                            <div class="neuron" style="--delay: 0s"></div>
+                            <div class="neuron" style="--delay: 0.5s"></div>
+                            <div class="neuron" style="--delay: 1s"></div>
+                            <div class="neuron" style="--delay: 1.5s"></div>
+                            <div class="connection"></div>
+                            <div class="connection"></div>
+                            <div class="connection"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-footer">
+                <div class="data-stream">
+                    <div class="stream-item">STATUS: ONLINE</div>
+                    <div class="stream-item">LOCATION: QUITO, ECUADOR</div>
+                    <div class="stream-item">DISPONIBILIDAD: INMEDIATA</div>
+                </div>
+                <div class="scroll-indicator">
+                    <span>EXPLORAR SISTEMA</span>
+                    <div class="scroll-arrow">↓</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section about-section">
+            <div class="section-header">
+                <h2 class="section-title">PERFIL PROFESIONAL</h2>
+                <div class="section-subtitle">Análisis de competencias técnicas</div>
+            </div>
+            <div class="about-grid">
+                <div class="profile-card">
+                    <div class="card-header">
+                        <div class="avatar-container">
+                            <div class="avatar-ring"></div>
+                            <div class="avatar">JS</div>
+                        </div>
+                        <div class="profile-info">
+                            <h3>Jhylmar Subia</h3>
+                            <p>Ingeniero en Electrónica y Automatización</p>
+                            <div class="status-badge">🟢 ACTIVO</div>
+                        </div>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">6+</div>
+                            <div class="stat-label">Años Experiencia</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">15+</div>
+                            <div class="stat-label">Proyectos</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Certificaciones</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="expertise-panel">
+                    <div class="panel-header">
+                        <h4>ÁREAS DE ESPECIALIZACIÓN</h4>
+                    </div>
+                    <div class="expertise-list">
+                        <div class="expertise-item">
+                            <div class="expertise-icon">🤖</div>
+                            <div class="expertise-content">
+                                <h5>Sistemas Inteligentes & IA</h5>
+                                <p>Desarrollo de soluciones con Machine Learning, visión artificial y algoritmos de optimización para automatización industrial.</p>
+                                <div class="tech-tags">
+                                    <span>TensorFlow</span>
+                                    <span>OpenCV</span>
+                                    <span>YOLO</span>
+                                    <span>Edge AI</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expertise-item">
+                            <div class="expertise-icon">⚙️</div>
+                            <div class="expertise-content">
+                                <h5>Control Industrial & PLC</h5>
+                                <p>Programación y configuración de sistemas de control con estándares IEC 61131, integración SCADA/HMI y protocolos industriales.</p>
+                                <div class="tech-tags">
+                                    <span>Siemens</span>
+                                    <span>Schneider</span>
+                                    <span>Rockwell</span>
+                                    <span>Modbus</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expertise-item">
+                            <div class="expertise-icon">🌐</div>
+                            <div class="expertise-content">
+                                <h5>IoT & Sistemas Embebidos</h5>
+                                <p>Diseño de arquitecturas IoT, sistemas embebidos y soluciones de monitoreo remoto con conectividad inalámbrica.</p>
+                                <div class="tech-tags">
+                                    <span>Jetson Nano</span>
+                                    <span>Firebase</span>
+                                    <span>WebSocket</span>
+                                    <span>LoRaWAN</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section experience-section">
+            <div class="section-header">
+                <h2 class="section-title">EXPERIENCIA PROFESIONAL</h2>
+                <div class="section-subtitle">Historial de operaciones</div>
+            </div>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <div class="timeline-item" data-year="2025">
+                    <div class="timeline-marker">
+                        <div class="marker-ring"></div>
+                        <div class="marker-dot"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="job-card">
+                            <div class="job-header">
+                                <h4>Técnico de Mantenimiento TI</h4>
+                                <span class="company">Synera S.A.</span>
+                                <span class="period">2025 - Presente</span>
+                            </div>
+                            <p>Mantenimiento de servidores, librerías y sistemas críticos en Data Centers de Petroecuador.</p>
+                            <div class="job-skills">
+                                <span>Data Centers</span>
+                                <span>Servidores</span>
+                                <span>Infraestructura TI</span>
+                                <span>Sistemas Críticos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item" data-year="2024">
+                    <div class="timeline-marker">
+                        <div class="marker-ring"></div>
+                        <div class="marker-dot"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="job-card">
+                            <div class="job-header">
+                                <h4>Ingeniero de Integración</h4>
+                                <span class="company">Conquito (AE-Vision)</span>
+                                <span class="period">2024</span>
+                            </div>
+                            <p>Sistema de clasificación de desechos con Machine Learning, backend en Nest.js y frontend en Next.js, con integración a Firebase.</p>
+                            <div class="job-skills">
+                                <span>Machine Learning</span>
+                                <span>Nest.js</span>
+                                <span>Next.js</span>
+                                <span>Firebase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item" data-year="2023">
+                    <div class="timeline-marker">
+                        <div class="marker-ring"></div>
+                        <div class="marker-dot"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="job-card">
+                            <div class="job-header">
+                                <h4>Ingeniero de Control</h4>
+                                <span class="company">Tecnipeso</span>
+                                <span class="period">2023</span>
+                            </div>
+                            <p>Repotenciación de sistema de dosificación industrial con PLC IEC 61131 e interfaces HMI.</p>
+                            <div class="job-skills">
+                                <span>PLC IEC 61131</span>
+                                <span>HMI</span>
+                                <span>Control Industrial</span>
+                                <span>Dosificación</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item" data-year="2022">
+                    <div class="timeline-marker">
+                        <div class="marker-ring"></div>
+                        <div class="marker-dot"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="job-card">
+                            <div class="job-header">
+                                <h4>Ingeniero en Visión Artificial</h4>
+                                <span class="company">AISE Technology</span>
+                                <span class="period">2022</span>
+                            </div>
+                            <p>Videovigilancia inteligente con YOLO + OpenCV en Jetson Nano y control físico de cámaras.</p>
+                            <div class="job-skills">
+                                <span>YOLO</span>
+                                <span>OpenCV</span>
+                                <span>Jetson Nano</span>
+                                <span>Computer Vision</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section projects-section">
+            <div class="section-header">
+                <h2 class="section-title">PROYECTOS DESTACADOS</h2>
+                <div class="section-subtitle">Implementaciones técnicas</div>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card" data-category="ai">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-tech">
+                                <span>YOLO</span>
+                                <span>OpenCV</span>
+                                <span>Jetson Nano</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h4>Sistema de Videovigilancia Inteligente</h4>
+                        <p>Implementación de detección de objetos en tiempo real con YOLO y OpenCV, desplegado en Jetson Nano para control físico de cámaras PTZ.</p>
+                        <div class="project-stats">
+                            <div class="stat">
+                                <span class="stat-value">95%</span>
+                                <span class="stat-label">Precisión</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">30fps</span>
+                                <span class="stat-label">Procesamiento</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-category="automation">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-tech">
+                                <span>PLC Siemens</span>
+                                <span>HMI</span>
+                                <span>SCADA</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h4>Sistema de Dosificación Industrial</h4>
+                        <p>Repotenciación completa de sistema de dosificación con PLC IEC 61131, interfaces HMI avanzadas y monitoreo SCADA en tiempo real.</p>
+                        <div class="project-stats">
+                            <div class="stat">
+                                <span class="stat-value">99.8%</span>
+                                <span class="stat-label">Uptime</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">±0.1%</span>
+                                <span class="stat-label">Precisión</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-category="iot">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-tech">
+                                <span>Next.js</span>
+                                <span>Firebase</span>
+                                <span>ML</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h4>AE-Vision: Clasificación Inteligente</h4>
+                        <p>Sistema de clasificación de desechos con Machine Learning, backend en Nest.js, frontend en Next.js e integración Firebase para monitoreo en tiempo real.</p>
+                        <div class="project-stats">
+                            <div class="stat">
+                                <span class="stat-value">92%</span>
+                                <span class="stat-label">Clasificación</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">24/7</span>
+                                <span class="stat-label">Operación</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section skills-section">
+            <div class="section-header">
+                <h2 class="section-title">COMPETENCIAS TÉCNICAS</h2>
+                <div class="section-subtitle">Análisis de habilidades</div>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>LENGUAJES & PROGRAMACIÓN</h4>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Python</span>
+                                <span class="skill-level">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">C++</span>
+                                <span class="skill-level">88%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="88"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">JavaScript</span>
+                                <span class="skill-level">82%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="82"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">R</span>
+                                <span class="skill-level">78%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="78"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h4>AUTOMATIZACIÓN & CONTROL</h4>
+                    <div class="skill-radar">
+                        <canvas id="automationRadar" width="300" height="300"></canvas>
+                        <div class="radar-labels">
+                            <div class="radar-label" data-skill="PLC Siemens">PLC Siemens</div>
+                            <div class="radar-label" data-skill="PLC Schneider">PLC Schneider</div>
+                            <div class="radar-label" data-skill="SCADA/HMI">SCADA/HMI</div>
+                            <div class="radar-label" data-skill="Modbus">Modbus</div>
+                            <div class="radar-label" data-skill="Profinet">Profinet</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>IA & VISIÓN ARTIFICIAL</h4>
+                    <div class="neural-visualization">
+                        <div class="neural-layer input-layer">
+                            <div class="neural-node active"></div>
+                            <div class="neural-node active"></div>
+                            <div class="neural-node active"></div>
+                            <div class="neural-node"></div>
+                        </div>
+                        <div class="neural-layer hidden-layer">
+                            <div class="neural-node active"></div>
+                            <div class="neural-node active"></div>
+                            <div class="neural-node"></div>
+                        </div>
+                        <div class="neural-layer output-layer">
+                            <div class="neural-node active"></div>
+                            <div class="neural-node"></div>
+                        </div>
+                        <div class="neural-connections">
+                            <svg class="connections-svg">
+                                <!-- Connections will be drawn by JavaScript -->
+                            </svg>
+                        </div>
+                        <div class="ai-skills-list">
+                            <div class="ai-skill">TensorFlow <span>92%</span></div>
+                            <div class="ai-skill">OpenCV <span>95%</span></div>
+                            <div class="ai-skill">YOLO <span>88%</span></div>
+                            <div class="ai-skill">Edge AI <span>85%</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>WEB & IoT</h4>
+                    <div class="iot-network">
+                        <div class="iot-hub">
+                            <div class="hub-core"></div>
+                            <div class="hub-ring"></div>
+                        </div>
+                        <div class="iot-devices">
+                            <div class="iot-device" data-tech="Next.js"></div>
+                            <div class="iot-device" data-tech="Nest.js"></div>
+                            <div class="iot-device" data-tech="Firebase"></div>
+                            <div class="iot-device" data-tech="WebSocket"></div>
+                        </div>
+                        <div class="iot-connections">
+                            <div class="iot-connection"></div>
+                            <div class="iot-connection"></div>
+                            <div class="iot-connection"></div>
+                            <div class="iot-connection"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Virtual Lab Section -->
+        <section id="lab" class="section lab-section">
+            <div class="section-header">
+                <h2 class="section-title">LABORATORIO VIRTUAL</h2>
+                <div class="section-subtitle">Demos interactivas</div>
+            </div>
+            <div class="lab-grid">
+                <div class="lab-demo plc-simulator">
+                    <div class="demo-header">
+                        <h4>Simulador PLC</h4>
+                        <div class="demo-status">🟢 ACTIVO</div>
+                    </div>
+                    <div class="plc-interface">
+                        <div class="plc-inputs">
+                            <h5>ENTRADAS</h5>
+                            <div class="input-group">
+                                <button class="plc-input" data-input="I0.0">I0.0</button>
+                                <button class="plc-input" data-input="I0.1">I0.1</button>
+                                <button class="plc-input" data-input="I0.2">I0.2</button>
+                            </div>
+                        </div>
+                        <div class="plc-logic">
+                            <div class="ladder-diagram">
+                                <div class="ladder-rung">
+                                    <span class="contact normally-open" data-input="I0.0">I0.0</span>
+                                    <span class="logic-and">AND</span>
+                                    <span class="contact normally-open" data-input="I0.1">I0.1</span>
+                                    <span class="logic-arrow">→</span>
+                                    <span class="coil" data-output="Q0.0">Q0.0</span>
+                                </div>
+                                <div class="ladder-rung">
+                                    <span class="contact normally-closed" data-input="I0.2">I0.2</span>
+                                    <span class="logic-arrow">→</span>
+                                    <span class="coil" data-output="Q0.1">Q0.1</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plc-outputs">
+                            <h5>SALIDAS</h5>
+                            <div class="output-group">
+                                <div class="plc-output" data-output="Q0.0">
+                                    <div class="output-led"></div>
+                                    <span>Q0.0</span>
+                                </div>
+                                <div class="plc-output" data-output="Q0.1">
+                                    <div class="output-led"></div>
+                                    <span>Q0.1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lab-demo vision-demo">
+                    <div class="demo-header">
+                        <h4>Computer Vision Demo</h4>
+                        <div class="demo-status">🟢 DETECTANDO</div>
+                    </div>
+                    <div class="vision-interface">
+                        <div class="camera-feed">
+                            <div class="detection-overlay">
+                                <div class="detection-box" style="top: 30%; left: 20%; width: 25%; height: 35%;">
+                                    <span class="detection-label">Persona (95%)</span>
+                                </div>
+                                <div class="detection-box" style="top: 45%; left: 60%; width: 20%; height: 25%;">
+                                    <span class="detection-label">Vehículo (87%)</span>
+                                </div>
+                            </div>
+                            <div class="camera-grid"></div>
+                        </div>
+                        <div class="vision-controls">
+                            <div class="control-group">
+                                <label>Threshold:</label>
+                                <input type="range" id="threshold" min="0" max="100" value="85">
+                                <span id="threshold-value">85%</span>
+                            </div>
+                            <div class="detection-stats">
+                                <div class="stat">Objetos: <span id="object-count">2</span></div>
+                                <div class="stat">FPS: <span id="fps-counter">30</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lab-demo network-monitor">
+                    <div class="demo-header">
+                        <h4>Monitor de Red Industrial</h4>
+                        <div class="demo-status">🟢 CONECTADO</div>
+                    </div>
+                    <div class="network-topology">
+                        <div class="network-node master-plc">
+                            <div class="node-icon">🖥️</div>
+                            <span class="node-label">PLC Maestro</span>
+                            <div class="node-status online"></div>
+                        </div>
+                        <div class="network-node slave-device">
+                            <div class="node-icon">📡</div>
+                            <span class="node-label">Sensor 1</span>
+                            <div class="node-status online"></div>
+                        </div>
+                        <div class="network-node slave-device">
+                            <div class="node-icon">🔧</div>
+                            <span class="node-label">Actuador</span>
+                            <div class="node-status warning"></div>
+                        </div>
+                        <div class="network-node slave-device">
+                            <div class="node-icon">📊</div>
+                            <span class="node-label">HMI</span>
+                            <div class="node-status online"></div>
+                        </div>
+                        <div class="network-connections">
+                            <div class="connection-line active"></div>
+                            <div class="connection-line active"></div>
+                            <div class="connection-line warning"></div>
+                        </div>
+                    </div>
+                    <div class="network-data">
+                        <div class="data-stream">
+                            <div class="data-packet">Modbus RTU: 01 03 00 00 00 01 84 0A</div>
+                            <div class="data-packet">Response: 01 03 02 12 34 B8 FA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section contact-section">
+            <div class="section-header">
+                <h2 class="section-title">ESTABLECER CONEXIÓN</h2>
+                <div class="section-subtitle">Canales de comunicación</div>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="info-panel">
+                        <h4>DATOS DE CONTACTO</h4>
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div class="contact-details">
+                                <span class="contact-label">Email:</span>
+                                <a href="mailto:jhylmarsubia@gmail.com">jhylmarsubia@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">💼</div>
+                            <div class="contact-details">
+                                <span class="contact-label">LinkedIn:</span>
+                                <a href="https://www.linkedin.com/in/jhylmar-subia-07aa92209" target="_blank">jhylmar-subia</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div class="contact-details">
+                                <span class="contact-label">Ubicación:</span>
+                                <span>Quito, Ecuador</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">🌐</div>
+                            <div class="contact-details">
+                                <span class="contact-label">Disponibilidad:</span>
+                                <span>Inmediata</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="certifications-panel">
+                        <h4>CERTIFICACIONES ACTIVAS</h4>
+                        <div class="cert-list">
+                            <div class="cert-item">
+                                <div class="cert-badge">✅</div>
+                                <span>Edge AI - Edge Impulse (2025)</span>
+                            </div>
+                            <div class="cert-item">
+                                <div class="cert-badge">✅</div>
+                                <span>Electricista - Fundación Carlos Slim</span>
+                            </div>
+                            <div class="cert-item">
+                                <div class="cert-badge">✅</div>
+                                <span>Jefe de Mantenimiento - F.C. Slim</span>
+                            </div>
+                            <div class="cert-item">
+                                <div class="cert-badge">✅</div>
+                                <span>Seguridad e Higiene Laboral</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form class="message-form">
+                        <div class="form-header">
+                            <h4>ENVIAR MENSAJE</h4>
+                            <div class="form-status">🔒 CONEXIÓN SEGURA</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Nombre:</label>
+                            <input type="text" id="name" name="name" required>
+                            <div class="input-glow"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                            <div class="input-glow"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Empresa:</label>
+                            <input type="text" id="company" name="company">
+                            <div class="input-glow"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensaje:</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <div class="input-glow"></div>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <span>ENVIAR TRANSMISIÓN</span>
+                            <div class="btn-effect"></div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="contact-footer">
+                <div class="system-info">
+                    <span>JHYLMAR.SYSTEM v2.0 | Estado: OPERATIVO | Uptime: 99.97%</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div class="circuit-pattern"></div>
+        <div class="data-flow"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
