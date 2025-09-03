@@ -419,112 +419,260 @@
                 <div class="section-subtitle">Análisis de habilidades</div>
             </div>
             <div class="skills-grid">
-                <div class="skill-category">
-                    <h4>LENGUAJES & PROGRAMACIÓN</h4>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <div class="skill-info">
+                <!-- Programming Languages with Interactive Terminal -->
+                <div class="skill-category programming-terminal">
+                    <h4>🚀 LENGUAJES & PROGRAMACIÓN</h4>
+                    <div class="terminal-display">
+                        <div class="terminal-header">
+                            <span class="terminal-dot red"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                            <span class="terminal-title">skills_analyzer.exe</span>
+                        </div>
+                        <div class="terminal-content">
+                            <div class="terminal-line">
+                                <span class="prompt">jhylmar@system:~$ </span>
+                                <span class="command">analyze_skills --languages</span>
+                            </div>
+                            <div class="skill-terminal-item" data-skill="python" data-level="95">
+                                <span class="skill-icon">🐍</span>
                                 <span class="skill-name">Python</span>
-                                <span class="skill-level">95%</span>
+                                <div class="skill-meter">
+                                    <div class="meter-bar" data-width="95"></div>
+                                    <span class="skill-percentage">95%</span>
+                                </div>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="95"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
+                            <div class="skill-terminal-item" data-skill="cpp" data-level="88">
+                                <span class="skill-icon">⚡</span>
                                 <span class="skill-name">C++</span>
-                                <span class="skill-level">88%</span>
+                                <div class="skill-meter">
+                                    <div class="meter-bar" data-width="88"></div>
+                                    <span class="skill-percentage">88%</span>
+                                </div>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="88"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
+                            <div class="skill-terminal-item" data-skill="js" data-level="82">
+                                <span class="skill-icon">💻</span>
                                 <span class="skill-name">JavaScript</span>
-                                <span class="skill-level">82%</span>
+                                <div class="skill-meter">
+                                    <div class="meter-bar" data-width="82"></div>
+                                    <span class="skill-percentage">82%</span>
+                                </div>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="82"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
+                            <div class="skill-terminal-item" data-skill="r" data-level="78">
+                                <span class="skill-icon">📊</span>
                                 <span class="skill-name">R</span>
-                                <span class="skill-level">78%</span>
+                                <div class="skill-meter">
+                                    <div class="meter-bar" data-width="78"></div>
+                                    <span class="skill-percentage">78%</span>
+                                </div>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="78"></div>
+                            <div class="terminal-status">
+                                <span class="cursor">|</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="skill-category">
-                    <h4>AUTOMATIZACIÓN & CONTROL</h4>
-                    <div class="skill-radar">
-                        <canvas id="automationRadar" width="300" height="300"></canvas>
-                        <div class="radar-labels">
-                            <div class="radar-label" data-skill="PLC Siemens">PLC Siemens</div>
-                            <div class="radar-label" data-skill="PLC Schneider">PLC Schneider</div>
-                            <div class="radar-label" data-skill="SCADA/HMI">SCADA/HMI</div>
-                            <div class="radar-label" data-skill="Modbus">Modbus</div>
-                            <div class="radar-label" data-skill="Profinet">Profinet</div>
+                <!-- Automation with Interactive Control Panel -->
+                <div class="skill-category automation-panel">
+                    <h4>⚙️ AUTOMATIZACIÓN & CONTROL</h4>
+                    <div class="control-panel">
+                        <div class="panel-screen">
+                            <canvas id="automationRadar" width="280" height="200"></canvas>
+                            <div class="system-status">
+                                <div class="status-indicator online"></div>
+                                <span>SISTEMAS ACTIVOS</span>
+                            </div>
+                        </div>
+                        <div class="control-buttons">
+                            <div class="control-skill" data-skill="siemens" data-level="95">
+                                <div class="skill-button active">
+                                    <span class="button-icon">🔧</span>
+                                    <span class="button-label">PLC Siemens</span>
+                                    <div class="level-indicator">95%</div>
+                                </div>
+                            </div>
+                            <div class="control-skill" data-skill="schneider" data-level="90">
+                                <div class="skill-button">
+                                    <span class="button-icon">⚡</span>
+                                    <span class="button-label">PLC Schneider</span>
+                                    <div class="level-indicator">90%</div>
+                                </div>
+                            </div>
+                            <div class="control-skill" data-skill="scada" data-level="92">
+                                <div class="skill-button">
+                                    <span class="button-icon">📊</span>
+                                    <span class="button-label">SCADA/HMI</span>
+                                    <div class="level-indicator">92%</div>
+                                </div>
+                            </div>
+                            <div class="control-skill" data-skill="modbus" data-level="88">
+                                <div class="skill-button">
+                                    <span class="button-icon">🔗</span>
+                                    <span class="button-label">Modbus</span>
+                                    <div class="level-indicator">88%</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="skill-category">
-                    <h4>IA & VISIÓN ARTIFICIAL</h4>
-                    <div class="neural-visualization">
-                        <div class="neural-layer input-layer">
-                            <div class="neural-node active"></div>
-                            <div class="neural-node active"></div>
-                            <div class="neural-node active"></div>
-                            <div class="neural-node"></div>
-                        </div>
-                        <div class="neural-layer hidden-layer">
-                            <div class="neural-node active"></div>
-                            <div class="neural-node active"></div>
-                            <div class="neural-node"></div>
-                        </div>
-                        <div class="neural-layer output-layer">
-                            <div class="neural-node active"></div>
-                            <div class="neural-node"></div>
-                        </div>
-                        <div class="neural-connections">
-                            <svg class="connections-svg">
+                <!-- AI & Computer Vision with Neural Network -->
+                <div class="skill-category ai-neural">
+                    <h4>🧠 IA & VISIÓN ARTIFICIAL</h4>
+                    <div class="neural-interface">
+                        <div class="brain-visualization">
+                            <div class="neural-network">
+                                <div class="neural-layer input-layer">
+                                    <div class="neural-node" data-index="0"></div>
+                                    <div class="neural-node" data-index="1"></div>
+                                    <div class="neural-node" data-index="2"></div>
+                                    <div class="neural-node" data-index="3"></div>
+                                </div>
+                                <div class="neural-layer hidden-layer-1">
+                                    <div class="neural-node" data-index="4"></div>
+                                    <div class="neural-node" data-index="5"></div>
+                                    <div class="neural-node" data-index="6"></div>
+                                    <div class="neural-node" data-index="7"></div>
+                                    <div class="neural-node" data-index="8"></div>
+                                </div>
+                                <div class="neural-layer hidden-layer-2">
+                                    <div class="neural-node" data-index="9"></div>
+                                    <div class="neural-node" data-index="10"></div>
+                                    <div class="neural-node" data-index="11"></div>
+                                </div>
+                                <div class="neural-layer output-layer">
+                                    <div class="neural-node" data-index="12"></div>
+                                    <div class="neural-node" data-index="13"></div>
+                                </div>
+                            </div>
+                            <svg class="neural-connections" viewBox="0 0 400 200">
                                 <!-- Connections will be drawn by JavaScript -->
                             </svg>
                         </div>
-                        <div class="ai-skills-list">
-                            <div class="ai-skill">TensorFlow <span>92%</span></div>
-                            <div class="ai-skill">OpenCV <span>95%</span></div>
-                            <div class="ai-skill">YOLO <span>88%</span></div>
-                            <div class="ai-skill">Edge AI <span>85%</span></div>
+                        <div class="ai-skills-panel">
+                            <div class="ai-skill-item" data-skill="tensorflow">
+                                <div class="skill-logo">🤖</div>
+                                <div class="skill-details">
+                                    <span class="skill-title">TensorFlow</span>
+                                    <div class="skill-progress-ring">
+                                        <svg class="progress-ring" width="60" height="60">
+                                            <circle class="progress-ring-circle" cx="30" cy="30" r="25" data-percent="92"></circle>
+                                        </svg>
+                                        <span class="progress-text">92%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ai-skill-item" data-skill="opencv">
+                                <div class="skill-logo">👁️</div>
+                                <div class="skill-details">
+                                    <span class="skill-title">OpenCV</span>
+                                    <div class="skill-progress-ring">
+                                        <svg class="progress-ring" width="60" height="60">
+                                            <circle class="progress-ring-circle" cx="30" cy="30" r="25" data-percent="95"></circle>
+                                        </svg>
+                                        <span class="progress-text">95%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ai-skill-item" data-skill="yolo">
+                                <div class="skill-logo">🎯</div>
+                                <div class="skill-details">
+                                    <span class="skill-title">YOLO</span>
+                                    <div class="skill-progress-ring">
+                                        <svg class="progress-ring" width="60" height="60">
+                                            <circle class="progress-ring-circle" cx="30" cy="30" r="25" data-percent="88"></circle>
+                                        </svg>
+                                        <span class="progress-text">88%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ai-skill-item" data-skill="edge">
+                                <div class="skill-logo">⚡</div>
+                                <div class="skill-details">
+                                    <span class="skill-title">Edge AI</span>
+                                    <div class="skill-progress-ring">
+                                        <svg class="progress-ring" width="60" height="60">
+                                            <circle class="progress-ring-circle" cx="30" cy="30" r="25" data-percent="85"></circle>
+                                        </svg>
+                                        <span class="progress-text">85%</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="skill-category">
-                    <h4>WEB & IoT</h4>
-                    <div class="iot-network">
-                        <div class="iot-hub">
-                            <div class="hub-core"></div>
-                            <div class="hub-ring"></div>
+                <!-- Web & IoT with Interactive Network -->
+                <div class="skill-category web-iot">
+                    <h4>🌐 WEB & IoT ECOSYSTEM</h4>
+                    <div class="ecosystem-interface">
+                        <div class="network-topology">
+                            <div class="central-hub">
+                                <div class="hub-core">
+                                    <span class="hub-icon">🌐</span>
+                                    <div class="pulse-ring"></div>
+                                </div>
+                                <div class="data-flow"></div>
+                            </div>
+                            <div class="tech-nodes">
+                                <div class="tech-node" data-tech="nextjs" data-angle="0" data-level="90">
+                                    <div class="node-circle">
+                                        <span class="node-icon">⚛️</span>
+                                    </div>
+                                    <span class="node-label">Next.js</span>
+                                    <div class="signal-strength">
+                                        <div class="signal-bar" style="--strength: 90%"></div>
+                                    </div>
+                                </div>
+                                <div class="tech-node" data-tech="nestjs" data-angle="90" data-level="85">
+                                    <div class="node-circle">
+                                        <span class="node-icon">🚀</span>
+                                    </div>
+                                    <span class="node-label">Nest.js</span>
+                                    <div class="signal-strength">
+                                        <div class="signal-bar" style="--strength: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="tech-node" data-tech="firebase" data-angle="180" data-level="88">
+                                    <div class="node-circle">
+                                        <span class="node-icon">🔥</span>
+                                    </div>
+                                    <span class="node-label">Firebase</span>
+                                    <div class="signal-strength">
+                                        <div class="signal-bar" style="--strength: 88%"></div>
+                                    </div>
+                                </div>
+                                <div class="tech-node" data-tech="websocket" data-angle="270" data-level="92">
+                                    <div class="node-circle">
+                                        <span class="node-icon">⚡</span>
+                                    </div>
+                                    <span class="node-label">WebSocket</span>
+                                    <div class="signal-strength">
+                                        <div class="signal-bar" style="--strength: 92%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="connection-lines">
+                                <div class="connection-line" data-from="center" data-to="nextjs"></div>
+                                <div class="connection-line" data-from="center" data-to="nestjs"></div>
+                                <div class="connection-line" data-from="center" data-to="firebase"></div>
+                                <div class="connection-line" data-from="center" data-to="websocket"></div>
+                            </div>
                         </div>
-                        <div class="iot-devices">
-                            <div class="iot-device" data-tech="Next.js"></div>
-                            <div class="iot-device" data-tech="Nest.js"></div>
-                            <div class="iot-device" data-tech="Firebase"></div>
-                            <div class="iot-device" data-tech="WebSocket"></div>
-                        </div>
-                        <div class="iot-connections">
-                            <div class="iot-connection"></div>
-                            <div class="iot-connection"></div>
-                            <div class="iot-connection"></div>
-                            <div class="iot-connection"></div>
+                        <div class="network-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Conexiones Activas:</span>
+                                <span class="stat-value" id="active-connections">4</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Rendimiento Promedio:</span>
+                                <span class="stat-value" id="avg-performance">89%</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Estado de Red:</span>
+                                <span class="stat-value online">ONLINE</span>
+                            </div>
                         </div>
                     </div>
                 </div>

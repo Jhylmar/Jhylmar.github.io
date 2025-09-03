@@ -258,15 +258,15 @@ class PortfolioSystem {
         this.startIoTAnimation();
     }
 
-    // Skill Animations
+    // Enhanced Interactive Skills Animations
     setupSkillAnimations() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    this.animateSkillBars();
+                    this.initializeInteractiveSkills();
                 }
             });
-        });
+        }, { threshold: 0.3 });
 
         const skillsSection = document.getElementById('skills');
         if (skillsSection) {
@@ -274,14 +274,388 @@ class PortfolioSystem {
         }
     }
 
-    animateSkillBars() {
-        const skillBars = document.querySelectorAll('.skill-progress');
-        skillBars.forEach((bar, index) => {
-            const width = bar.getAttribute('data-width');
+    initializeInteractiveSkills() {
+        this.setupProgrammingTerminal();
+        this.setupAutomationPanel();
+        this.setupAINeuralNetwork();
+        this.setupWebIoTEcosystem();
+    }
+
+    setupProgrammingTerminal() {
+        const terminalItems = document.querySelectorAll('.skill-terminal-item');
+        
+        // Animate meter bars
+        terminalItems.forEach((item, index) => {
+            const level = item.getAttribute('data-level');
+            const meterBar = item.querySelector('.meter-bar');
+            
             setTimeout(() => {
-                bar.style.width = `${width}%`;
+                if (meterBar) {
+                    meterBar.style.setProperty('--width', level + '%');
+                    meterBar.querySelector('::after') || 
+                    (meterBar.style.width = level + '%');
+                }
+            }, index * 300);
+
+            // Add click interaction
+            item.addEventListener('click', () => {
+                this.displaySkillDetails(item.getAttribute('data-skill'));
+            });
+
+            // Add hover effect
+            item.addEventListener('mouseenter', () => {
+                this.typeSkillInfo(item.getAttribute('data-skill'));
+            });
+        });
+
+        // Start cursor blinking
+        this.startTerminalCursor();
+    }
+
+    setupAutomationPanel() {
+        const controlButtons = document.querySelectorAll('.control-skill');
+        const radar = document.getElementById('automationRadar');
+
+        if (radar) {
+            this.drawAutomationRadar(radar);
+        }
+
+        controlButtons.forEach((button, index) => {
+            const skillButton = button.querySelector('.skill-button');
+            
+            setTimeout(() => {
+                skillButton.classList.add('active');
+                setTimeout(() => {
+                    skillButton.classList.remove('active');
+                }, 800);
+            }, index * 500);
+
+            skillButton.addEventListener('click', () => {
+                // Remove active from all buttons
+                controlButtons.forEach(btn => 
+                    btn.querySelector('.skill-button').classList.remove('active'));
+                
+                // Add active to clicked button
+                skillButton.classList.add('active');
+                
+                // Update radar focus
+                this.updateRadarFocus(button.getAttribute('data-skill'));
+            });
+        });
+
+        // Start system status animation
+        this.animateSystemStatus();
+    }
+
+    setupAINeuralNetwork() {
+        const neuralNodes = document.querySelectorAll('.neural-node');
+        const aiSkillItems = document.querySelectorAll('.ai-skill-item');
+        
+        // Initialize neural network connections
+        this.drawNeuralConnections();
+        
+        // Start neural activity
+        this.startNeuralActivity();
+        
+        // Setup progress rings
+        aiSkillItems.forEach((item, index) => {
+            const circle = item.querySelector('.progress-ring-circle');
+            const percent = circle.getAttribute('data-percent');
+            
+            setTimeout(() => {
+                this.animateProgressRing(circle, percent);
+            }, index * 400);
+
+            // Add interaction
+            item.addEventListener('click', () => {
+                this.triggerNeuralBurst(item.getAttribute('data-skill'));
+            });
+        });
+    }
+
+    setupWebIoTEcosystem() {
+        const techNodes = document.querySelectorAll('.tech-node');
+        const connectionLines = document.querySelectorAll('.connection-line');
+        
+        // Position nodes dynamically
+        techNodes.forEach((node, index) => {
+            const angle = parseFloat(node.getAttribute('data-angle'));
+            const radius = 120;
+            const x = Math.cos(angle * Math.PI / 180) * radius;
+            const y = Math.sin(angle * Math.PI / 180) * radius;
+            
+            setTimeout(() => {
+                node.style.transform = `translate(${x}px, ${y}px)`;
+                node.style.opacity = '1';
             }, index * 200);
         });
+
+        // Start ecosystem animation
+        this.startEcosystemAnimation();
+        
+        // Add node interactions
+        techNodes.forEach(node => {
+            node.addEventListener('click', () => {
+                this.activateEcosystemNode(node);
+            });
+        });
+
+        // Update network stats
+        this.updateNetworkStats();
+    }
+
+    drawAutomationRadar(canvas) {
+        const ctx = canvas.getContext('2d');
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const maxRadius = Math.min(centerX, centerY) - 20;
+
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw radar grid
+        ctx.strokeStyle = '#2c5282';
+        ctx.lineWidth = 1;
+        
+        for (let i = 1; i <= 5; i++) {
+            const radius = (maxRadius / 5) * i;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.stroke();
+        }
+
+        // Draw radar lines
+        const skills = ['PLC Siemens', 'PLC Schneider', 'SCADA/HMI', 'Modbus', 'Profinet'];
+        const values = [95, 90, 92, 88, 85];
+        
+        skills.forEach((skill, index) => {
+            const angle = (index * 2 * Math.PI) / skills.length - Math.PI / 2;
+            const x = centerX + Math.cos(angle) * maxRadius;
+            const y = centerY + Math.sin(angle) * maxRadius;
+            
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        });
+
+        // Draw skill polygon
+        ctx.strokeStyle = '#2ed573';
+        ctx.fillStyle = 'rgba(46, 213, 115, 0.2)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        
+        values.forEach((value, index) => {
+            const angle = (index * 2 * Math.PI) / values.length - Math.PI / 2;
+            const radius = (value / 100) * maxRadius;
+            const x = centerX + Math.cos(angle) * radius;
+            const y = centerY + Math.sin(angle) * radius;
+            
+            if (index === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+        });
+        
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // Draw skill points
+        values.forEach((value, index) => {
+            const angle = (index * 2 * Math.PI) / values.length - Math.PI / 2;
+            const radius = (value / 100) * maxRadius;
+            const x = centerX + Math.cos(angle) * radius;
+            const y = centerY + Math.sin(angle) * radius;
+            
+            ctx.fillStyle = '#00a8ff';
+            ctx.beginPath();
+            ctx.arc(x, y, 4, 0, 2 * Math.PI);
+            ctx.fill();
+        });
+    }
+
+    drawNeuralConnections() {
+        const svg = document.querySelector('.neural-connections');
+        if (!svg) return;
+
+        const layers = [
+            { nodes: 4, x: 20 },
+            { nodes: 5, x: 120 },
+            { nodes: 3, x: 220 },
+            { nodes: 2, x: 320 }
+        ];
+
+        let connections = '';
+        
+        // Connect each layer to the next
+        for (let i = 0; i < layers.length - 1; i++) {
+            const currentLayer = layers[i];
+            const nextLayer = layers[i + 1];
+            
+            for (let j = 0; j < currentLayer.nodes; j++) {
+                for (let k = 0; k < nextLayer.nodes; k++) {
+                    const y1 = 40 + (j * 30);
+                    const y2 = 40 + (k * 30);
+                    
+                    connections += `
+                        <line x1="${currentLayer.x}" y1="${y1}" 
+                              x2="${nextLayer.x}" y2="${y2}" 
+                              stroke="#00a8ff" stroke-width="1" 
+                              opacity="0.3" class="neural-connection"/>
+                    `;
+                }
+            }
+        }
+        
+        svg.innerHTML = connections;
+    }
+
+    startNeuralActivity() {
+        const nodes = document.querySelectorAll('.neural-node');
+        
+        setInterval(() => {
+            // Random activation pattern
+            const activeNodes = Math.floor(Math.random() * 3) + 2;
+            
+            for (let i = 0; i < activeNodes; i++) {
+                const randomNode = nodes[Math.floor(Math.random() * nodes.length)];
+                randomNode.classList.add('active');
+                
+                setTimeout(() => {
+                    randomNode.classList.remove('active');
+                }, 1500);
+            }
+        }, 2000);
+    }
+
+    animateProgressRing(circle, percent) {
+        const circumference = 2 * Math.PI * 25; // radius = 25
+        circle.style.strokeDasharray = circumference;
+        circle.style.strokeDashoffset = circumference;
+        circle.style.stroke = '#2ed573';
+        circle.style.strokeWidth = '3';
+        
+        setTimeout(() => {
+            const offset = circumference - (percent / 100) * circumference;
+            circle.style.strokeDashoffset = offset;
+            circle.style.transition = 'stroke-dashoffset 2s ease-in-out';
+        }, 100);
+    }
+
+    startEcosystemAnimation() {
+        const hub = document.querySelector('.hub-core');
+        const connections = document.querySelectorAll('.connection-line');
+        
+        // Animate hub rotation
+        if (hub) {
+            hub.style.animation = 'hubRotate 20s linear infinite';
+        }
+        
+        // Animate data flow
+        setInterval(() => {
+            connections.forEach((line, index) => {
+                setTimeout(() => {
+                    line.style.opacity = '1';
+                    line.style.background = 'linear-gradient(90deg, #2ed573, #00a8ff)';
+                    
+                    setTimeout(() => {
+                        line.style.opacity = '0.6';
+                        line.style.background = 'linear-gradient(90deg, #00a8ff, #2ed573)';
+                    }, 1000);
+                }, index * 500);
+            });
+        }, 4000);
+    }
+
+    updateNetworkStats() {
+        const activeConnections = document.getElementById('active-connections');
+        const avgPerformance = document.getElementById('avg-performance');
+        
+        setInterval(() => {
+            if (activeConnections) {
+                const connections = 3 + Math.floor(Math.random() * 3);
+                activeConnections.textContent = connections;
+            }
+            
+            if (avgPerformance) {
+                const performance = 85 + Math.floor(Math.random() * 10);
+                avgPerformance.textContent = performance + '%';
+            }
+        }, 3000);
+    }
+
+    startTerminalCursor() {
+        const cursor = document.querySelector('.cursor');
+        if (cursor) {
+            setInterval(() => {
+                cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+            }, 500);
+        }
+    }
+
+    triggerNeuralBurst(skillType) {
+        const nodes = document.querySelectorAll('.neural-node');
+        nodes.forEach((node, index) => {
+            setTimeout(() => {
+                node.classList.add('active');
+                setTimeout(() => {
+                    node.classList.remove('active');
+                }, 300);
+            }, index * 100);
+        });
+    }
+
+    activateEcosystemNode(node) {
+        // Remove active from all nodes
+        document.querySelectorAll('.tech-node').forEach(n => 
+            n.classList.remove('active'));
+        
+        // Add active to clicked node
+        node.classList.add('active');
+        
+        // Pulse effect
+        const circle = node.querySelector('.node-circle');
+        circle.style.transform = 'scale(1.3)';
+        circle.style.boxShadow = '0 0 30px rgba(46, 213, 115, 0.5)';
+        
+        setTimeout(() => {
+            circle.style.transform = 'scale(1)';
+            circle.style.boxShadow = 'none';
+        }, 500);
+    }
+
+    displaySkillDetails(skill) {
+        console.log(`Displaying details for: ${skill}`);
+        // Here you could add a modal or detailed view
+    }
+
+    typeSkillInfo(skill) {
+        const cursor = document.querySelector('.cursor');
+        if (cursor) {
+            cursor.textContent = ` ${skill} analysis...`;
+            setTimeout(() => {
+                cursor.textContent = '|';
+            }, 1500);
+        }
+    }
+
+    updateRadarFocus(skill) {
+        console.log(`Radar focused on: ${skill}`);
+        // Update radar visualization focus
+    }
+
+    animateSystemStatus() {
+        const indicator = document.querySelector('.status-indicator');
+        if (indicator) {
+            setInterval(() => {
+                indicator.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    indicator.style.transform = 'scale(1)';
+                }, 200);
+            }, 2000);
+        }
     }
 
     // Neural Network Animation
@@ -415,7 +789,7 @@ class PortfolioSystem {
         }, observerOptions);
 
         // Observe elements
-        document.querySelectorAll('.timeline-item, .project-card, .skill-category, .expertise-item').forEach(el => {
+        document.querySelectorAll('.timeline-item, .project-card, .skill-category, .expertise-item, .skill-terminal-item, .ai-skill-item, .tech-node').forEach(el => {
             observer.observe(el);
         });
     }
