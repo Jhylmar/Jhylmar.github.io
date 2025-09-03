@@ -3,13 +3,6 @@ class PortfolioSystem {
     constructor() {
         this.isLoaded = false;
         this.currentSection = 'home';
-        this.plcInputs = {};
-        this.plcOutputs = {};
-        this.visionSettings = {
-            threshold: 85,
-            objectCount: 2,
-            fps: 30
-        };
         
         this.init();
     }
@@ -20,9 +13,6 @@ class PortfolioSystem {
         this.setupParticles();
         this.setupTypewriter();
         this.setupAnimations();
-        this.setupPLCSimulator();
-        this.setupVisionDemo();
-        this.setupNetworkMonitor();
         this.setupSkillAnimations();
         this.setupContactForm();
         this.setupScrollEffects();
@@ -341,209 +331,6 @@ class PortfolioSystem {
         }, 3000);
     }
 
-    // PLC Simulator
-    setupPLCSimulator() {
-        const inputs = document.querySelectorAll('.plc-input');
-        const outputs = document.querySelectorAll('.plc-output');
-
-        inputs.forEach(input => {
-            const inputId = input.getAttribute('data-input');
-            this.plcInputs[inputId] = false;
-
-            input.addEventListener('click', () => {
-                this.plcInputs[inputId] = !this.plcInputs[inputId];
-                input.classList.toggle('active', this.plcInputs[inputId]);
-                this.updatePLCLogic();
-            });
-        });
-
-        outputs.forEach(output => {
-            const outputId = output.getAttribute('data-output');
-            this.plcOutputs[outputId] = false;
-        });
-
-        // Initialize contacts and coils
-        this.setupLadderDiagram();
-    }
-
-    setupLadderDiagram() {
-        const contacts = document.querySelectorAll('.contact');
-        const coils = document.querySelectorAll('.coil');
-
-        contacts.forEach(contact => {
-            const inputId = contact.getAttribute('data-input');
-            contact.addEventListener('click', () => {
-                // Visual feedback for contact activation
-                if (this.plcInputs[inputId]) {
-                    contact.classList.add('active');
-                } else {
-                    contact.classList.remove('active');
-                }
-            });
-        });
-    }
-
-    updatePLCLogic() {
-        // Logic for Q0.0: I0.0 AND I0.1
-        this.plcOutputs['Q0.0'] = this.plcInputs['I0.0'] && this.plcInputs['I0.1'];
-        
-        // Logic for Q0.1: NOT I0.2
-        this.plcOutputs['Q0.1'] = !this.plcInputs['I0.2'];
-
-        // Update visual indicators
-        Object.keys(this.plcOutputs).forEach(outputId => {
-            const output = document.querySelector(`[data-output="${outputId}"]`);
-            const contact = document.querySelector(`.contact[data-input="${outputId.replace('Q', 'I')}"]`);
-            const coil = document.querySelector(`.coil[data-output="${outputId}"]`);
-            
-            if (output) {
-                output.classList.toggle('active', this.plcOutputs[outputId]);
-            }
-            
-            if (coil) {
-                coil.classList.toggle('active', this.plcOutputs[outputId]);
-            }
-        });
-
-        // Update contacts based on inputs
-        Object.keys(this.plcInputs).forEach(inputId => {
-            const contact = document.querySelector(`.contact[data-input="${inputId}"]`);
-            if (contact) {
-                if (contact.classList.contains('normally-open')) {
-                    contact.classList.toggle('active', this.plcInputs[inputId]);
-                } else if (contact.classList.contains('normally-closed')) {
-                    contact.classList.toggle('active', !this.plcInputs[inputId]);
-                }
-            }
-        });
-
-        // Add some visual feedback with sound (optional)
-        this.playSystemSound('plc_update');
-    }
-
-    // Vision Demo
-    setupVisionDemo() {
-        const thresholdSlider = document.getElementById('threshold');
-        const thresholdValue = document.getElementById('threshold-value');
-        const objectCount = document.getElementById('object-count');
-        const fpsCounter = document.getElementById('fps-counter');
-
-        if (thresholdSlider) {
-            thresholdSlider.addEventListener('input', (e) => {
-                this.visionSettings.threshold = e.target.value;
-                thresholdValue.textContent = `${e.target.value}%`;
-                this.updateVisionDemo();
-            });
-        }
-
-        // Simulate real-time detection
-        this.startVisionSimulation();
-    }
-
-    startVisionSimulation() {
-        const detectionBoxes = document.querySelectorAll('.detection-box');
-        const objectCount = document.getElementById('object-count');
-        const fpsCounter = document.getElementById('fps-counter');
-
-        setInterval(() => {
-            // Simulate FPS fluctuation
-            this.visionSettings.fps = 28 + Math.random() * 4;
-            if (fpsCounter) {
-                fpsCounter.textContent = Math.round(this.visionSettings.fps);
-            }
-
-            // Simulate object count changes
-            const newCount = Math.random() > 0.3 ? 2 : Math.random() > 0.5 ? 1 : 3;
-            this.visionSettings.objectCount = newCount;
-            if (objectCount) {
-                objectCount.textContent = newCount;
-            }
-
-            // Update detection boxes
-            detectionBoxes.forEach((box, index) => {
-                if (index < newCount) {
-                    box.style.display = 'block';
-                    // Simulate slight movement
-                    const currentTop = parseFloat(box.style.top) || 30;
-                    const currentLeft = parseFloat(box.style.left) || 20;
-                    box.style.top = `${currentTop + (Math.random() - 0.5) * 5}%`;
-                    box.style.left = `${currentLeft + (Math.random() - 0.5) * 5}%`;
-                } else {
-                    box.style.display = 'none';
-                }
-            });
-        }, 1000);
-    }
-
-    updateVisionDemo() {
-        // Update detection confidence based on threshold
-        const labels = document.querySelectorAll('.detection-label');
-        labels.forEach(label => {
-            const confidence = Math.max(60, Math.min(95, this.visionSettings.threshold + Math.random() * 10));
-            const objectType = label.textContent.split(' (')[0];
-            label.textContent = `${objectType} (${Math.round(confidence)}%)`;
-        });
-    }
-
-    // Network Monitor
-    setupNetworkMonitor() {
-        const nodes = document.querySelectorAll('.network-node');
-        const connections = document.querySelectorAll('.connection-line');
-        const dataPackets = document.querySelectorAll('.data-packet');
-
-        // Simulate network activity
-        setInterval(() => {
-            // Random node status changes
-            nodes.forEach(node => {
-                const status = node.querySelector('.node-status');
-                if (Math.random() > 0.9) {
-                    status.classList.toggle('warning');
-                    setTimeout(() => {
-                        status.classList.remove('warning');
-                    }, 2000);
-                }
-            });
-
-            // Connection status simulation
-            connections.forEach(connection => {
-                if (Math.random() > 0.8) {
-                    connection.classList.add('active');
-                    setTimeout(() => {
-                        connection.classList.remove('active');
-                    }, 1500);
-                }
-            });
-
-            // Data packet simulation
-            this.simulateDataPackets();
-        }, 3000);
-    }
-
-    simulateDataPackets() {
-        const packets = [
-            "Modbus RTU: 01 03 00 00 00 01 84 0A",
-            "Response: 01 03 02 12 34 B8 FA",
-            "Profinet: DCP Hello Request",
-            "EtherCAT: LRW 0x1000 0x0004",
-            "Modbus TCP: FC03 Read Holding Registers"
-        ];
-
-        const dataStream = document.querySelector('.data-stream');
-        if (dataStream) {
-            const randomPacket = packets[Math.floor(Math.random() * packets.length)];
-            const packetElement = document.createElement('div');
-            packetElement.className = 'data-packet';
-            packetElement.textContent = randomPacket;
-            
-            dataStream.appendChild(packetElement);
-            
-            // Remove old packets
-            if (dataStream.children.length > 10) {
-                dataStream.removeChild(dataStream.firstChild);
-            }
-        }
-    }
-
     // Contact Form
     setupContactForm() {
         const form = document.querySelector('.message-form');
@@ -628,7 +415,7 @@ class PortfolioSystem {
         }, observerOptions);
 
         // Observe elements
-        document.querySelectorAll('.timeline-item, .project-card, .skill-category, .expertise-item, .lab-demo').forEach(el => {
+        document.querySelectorAll('.timeline-item, .project-card, .skill-category, .expertise-item').forEach(el => {
             observer.observe(el);
         });
     }
