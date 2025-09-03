@@ -62,6 +62,9 @@ He trabajado en proyectos de **control industrial, infraestructura TI, sistemas 
 🔹 **Asistente de Proyectos – SEIUS (Schneider)**  
 *Reingeniería de tableros de control para Coca Codo Sinclair con PLC, sensores industriales y HMI ISA 101.*  
 
+🔹 **Asistente de Proyectos IoT – CONSTECOIN**   
+Desarrollo de alarmas comunitarias inteligentes y sensorización remota de tableros eléctricos con conectividad inalámbrica.  
+
 ---
 
 ## 🎓 Educación  
