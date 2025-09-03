@@ -1,72 +1,95 @@
-# <div align="center">Jhylmar Subia</div>
-<div align="center">Ingeniero en Electrónica y Automatización | Especialista en Sistemas Inteligentes</div>
+# 👋 Hola, soy Jhylmar Subia  
 
-<div align="center">
-📍 Quito, Ecuador | ✉️ jhylmarsubia@gmail.com | 📞 +593 994146218  
-</div>
+🎯 **Ingeniero en Electrónica y Automatización | Desarrollo de Sistemas Inteligentes**  
+📍 Quito, Ecuador  
 
-## 🔍 **Perfil Profesional**
-Ingeniero especializado en automatización industrial e inteligencia artificial con experiencia en:
-- Sistemas SCADA/MES y control de procesos industriales
-- Desarrollo de soluciones IoT y visión artificial
-- Programación de PLCs (Schneider, Rockwell) y HMIs
-- Implementación de sistemas embebidos para automatización
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Perfil-blue?logo=linkedin)](https://www.linkedin.com/in/jhylmar-subia-07aa92209)  
+📱 +593 994146218 | ✉️ jhylmarsubia@gmail.com  
 
-## 🚀 **Experiencia Clave**
+---
 
-### **🧠 Proyectos de Inteligencia Artificial**
+## 🚀 Perfil Profesional  
 
-**AE-Vision (CONQUITO)** | Ene 2025 - Jun 2025  
-`TensorFlow` `Firebase` `Edge AI`  
-- Clasificador de residuos con:
-  - Procesamiento de audio y visión artificial
-  - Modelos Edge optimizados
-  - Sistema embebido para control
+Ingeniero en **Electrónica y Automatización** con experiencia en **sistemas inteligentes, IoT, visión artificial, ciberseguridad aplicada y automatización industrial**.  
+He trabajado en proyectos de **control industrial, infraestructura TI, sistemas embebidos, SCADA, PLC y monitoreo en tiempo real**, integrando hardware y software.  
 
-**AISE Technology** | Independiente | Nov 2024 - Ene 2025  
-`Python` `OpenCV` `Sistemas Embebidos`  
-- Sistema de vigilancia inteligente con:
-  - Tracking en tiempo real
-  - Detección de movimientos bruscos
-  - Control físico mediante módulo pan/tilt
+💡 Apasionado por la **innovación tecnológica, la IA aplicada y las soluciones sostenibles**.  
 
-### ⚙️ **Automatización Industrial**
-**Tecnipeso Cia. Ltda** | Feb 2025 - Abr 2025  
-`PLC` `HMI` `Sensores Industriales`  
-- Rediseño de sistema de dosificación por peso:
-  - Integración de electroválvulas
-  - Sensores analógicos de precisión
-  - Interfaz HMI para operadores
+---
 
-**SEIUS S.A. (Schneider Electric)** | Nov 2023 - Oct 2024  
-`SCADA` `Variadores de Frecuencia` `IEC 61131-3`  
-- Proyecto hidroeléctrica Coca Codo Sinclair:
-  - Reingeniería de sistemas de control
-  - Configuración de variadores
-  - Documentación de tableros
+## 🛠️ Tecnologías y Herramientas  
 
-## 💻 **Habilidades Técnicas**
+**Lenguajes & Programación**  
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)  
+![C++](https://img.shields.io/badge/C++-00599C?style=flat&logo=cplusplus&logoColor=white)  
+![R](https://img.shields.io/badge/R-276DC3?style=flat&logo=r&logoColor=white)  
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)  
 
-| **Categoría**          | **Tecnologías**                                              |
-|------------------------|--------------------------------------------------------------|
-| **Control Industrial** | PLC (Schneider, Rockwell), SCADA, DCS, HMI (WinCC, Ignition) |
-| **Programación**       | Python (CV, IA), C++ (Embebidos), R Studio                   |
-| **Sistemas**           | IoT Industrial, Visión Artificial, Edge Computing            |
-| **Herramientas**       | Firebase, Docker, Git, MQTT                                  |
+**Automatización & Control**  
+![PLC Siemens](https://img.shields.io/badge/PLC-Siemens-blue?style=flat&logo=siemens)  
+![PLC Schneider](https://img.shields.io/badge/PLC-Schneider-green?style=flat)  
+![PLC Rockwell](https://img.shields.io/badge/PLC-Rockwell-red?style=flat)  
+![SCADA](https://img.shields.io/badge/SCADA%2FHMI-WinCC%2FIntouch%2FIgnition-orange?style=flat)  
 
-## 📚 **Educación**
-**Ingeniería en Electrónica y Automatización**  
-*Universidad de las Fuerzas Armadas ESPE* | 2024  
-`Acreditación EUR-ACE` `Tesis: Reingeniería de las unidades de generación eléctrica de la hidroeléctrica Coca Codo Sinclair`
+**IA & Sistemas Embebidos**  
+![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat&logo=tensorflow&logoColor=white)  
+![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=flat&logo=opencv&logoColor=white)  
+![YOLO](https://img.shields.io/badge/YOLO-vision-brightgreen?style=flat)  
+![Jetson Nano](https://img.shields.io/badge/NVIDIA-JetsonNano-76B900?style=flat&logo=nvidia&logoColor=white)  
 
-## 🌐 **Idiomas**
-- **Español**: Nativo
-- **Inglés**: B1 (Técnico) - En proceso de mejora hacia B2
+**Web & IoT**  
+![Nest.js](https://img.shields.io/badge/Nest.js-E0234E?style=flat&logo=nestjs&logoColor=white)  
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=nextdotjs&logoColor=white)  
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black)  
+![WebSocket](https://img.shields.io/badge/RealTime-WebSocket-yellow?style=flat)  
 
-## 📌 **Referencias**
-- **Eduardo Urbina** (Director de Operaciones, SEIUS S.A.)
-- **Geovanny Mosquera** (Especialista, Supermercados Santa María)
+---
 
-<div align="center" style="margin-top: 20px;">
-  <strong>Disponible para proyectos desafiantes en automatización e IA industrial</strong>
-</div>
+## 💼 Experiencia Destacada  
+
+🔹 **Técnico de Mantenimiento TI – Synera S.A.**  
+*Mantenimiento de servidores, librerías y sistemas críticos en Data Centers de Petroecuador.*  
+
+🔹 **Ingeniero de Integración – Conquito (AE-Vision)**  
+*Sistema de clasificación de desechos con Machine Learning, backend en Nest.js y frontend en Next.js, con integración a Firebase.*  
+
+🔹 **Ingeniero de Control – Tecnipeso**  
+*Repotenciación de sistema de dosificación industrial con PLC IEC 61131 e interfaces HMI.*  
+
+🔹 **Ingeniero en Visión Artificial – AISE Technology**  
+*Videovigilancia inteligente con YOLO + OpenCV en Jetson Nano y control físico de cámaras.*  
+
+🔹 **Asistente de Proyectos – SEIUS (Schneider)**  
+*Reingeniería de tableros de control para Coca Codo Sinclair con PLC, sensores industriales y HMI ISA 101.*  
+
+---
+
+## 🎓 Educación  
+
+- 🎓 **Ingeniero en Electrónica y Automatización** – Universidad de las Fuerzas Armadas ESPE (2018 – 2024)  
+  Programa acreditado **EUR-ACE**.  
+- 🎓 **Bachiller en Electrónica de Consumo** – Unidad Educativa Salesiana Don Bosco (2018)  
+
+---
+
+## 🏆 Certificaciones  
+
+✅ **Edge AI – Edge Impulse** (2025)  
+✅ **Electricista – Fundación Carlos Slim** (2023)  
+✅ **Jefe de Mantenimiento – Fundación Carlos Slim** (2023)  
+✅ **Seguridad, Higiene y Ambiente Laboral – Fundación Carlos Slim** (2023)  
+
+---
+
+## 🌐 Idiomas  
+- 🇪🇸 Español: Nativo  
+- 🇬🇧 Inglés: B1 *(en curso hacia B2)*  
+
+---
+
+## 📌 Información Adicional  
+- 🚗 Licencia de conducción tipo B  
+- 📍 Disponibilidad inmediata y flexibilidad para turnos y viajes  
+
+---
+✨ _Siempre abierto a colaborar en proyectos de **IA, IoT, ciberseguridad aplicada y automatización industrial**._  
