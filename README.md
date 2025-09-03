@@ -4,7 +4,7 @@
 📍 Quito, Ecuador  
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Perfil-blue?logo=linkedin)](https://www.linkedin.com/in/jhylmar-subia-07aa92209)  
-📱 +593 994146218 | ✉️ jhylmarsubia@gmail.com  
+✉️ jhylmarsubia@gmail.com  
 
 ---
 
