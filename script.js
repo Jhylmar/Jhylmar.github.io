@@ -13,7 +13,7 @@ class PortfolioSystem {
         this.setupLoadingScreen();
         this.setupNavigation();
         this.setupParticles();
-        this.setupTypewriter();
+        // this.setupTypewriter(); // Se ejecutará después de la carga
         this.setupSkillAnimations();
         this.setupContactForm();
         this.setupScrollEffects();
@@ -47,12 +47,13 @@ class PortfolioSystem {
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        // Configuración de la red neuronal
-        const layers = [4, 6, 3]; // Capas: entrada, oculta, salida
+        // Configuración de la red neuronal con más capas para mayor impacto visual
+        const layers = [5, 8, 6, 4]; // 4 capas para más complejidad visual
         const nodes = [];
         const connections = [];
+        const pulses = []; // Para efectos de pulso en las conexiones
         
-        // Crear nodos
+        // Crear nodos con propiedades adicionales para efectos
         const layerSpacing = canvas.width / (layers.length + 1);
         layers.forEach((nodeCount, layerIndex) => {
             const layerNodes = [];
@@ -63,67 +64,185 @@ class PortfolioSystem {
                     x: layerSpacing * (layerIndex + 1),
                     y: nodeSpacing * (i + 1),
                     active: false,
-                    layer: layerIndex
+                    layer: layerIndex,
+                    baseRadius: 8,
+                    currentRadius: 8,
+                    glowIntensity: 0,
+                    pulsePhase: Math.random() * Math.PI * 2,
+                    color: layerIndex === 0 ? '#00ff88' : 
+                           layerIndex === layers.length - 1 ? '#ff0088' : '#00ffff'
                 });
             }
             nodes.push(layerNodes);
         });
 
-        // Crear conexiones (reducidas - solo algunas conexiones estratégicas)
+        // Crear conexiones con efectos de pulso
         for (let i = 0; i < layers.length - 1; i++) {
             for (let j = 0; j < nodes[i].length; j++) {
                 // En lugar de conectar todos con todos, conectar solo algunos nodos
-                const connectionCount = Math.min(3, nodes[i + 1].length); // Máximo 3 conexiones por nodo
+                const connectionCount = Math.min(4, nodes[i + 1].length); // Aumentado a 4 para más conexiones
                 for (let k = 0; k < connectionCount; k++) {
                     const targetIndex = Math.floor((k * nodes[i + 1].length) / connectionCount);
                     connections.push({
                         from: nodes[i][j],
                         to: nodes[i + 1][targetIndex],
                         active: false,
-                        opacity: 0
+                        opacity: 0,
+                        pulsePosition: 0,
+                        pulseSpeed: 0.05 + Math.random() * 0.03,
+                        thickness: 1
                     });
                 }
             }
         }
 
-        // Función de dibujo
+        // Partículas flotantes para ambiente
+        const particles = [];
+        for (let i = 0; i < 30; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                size: Math.random() * 2 + 1,
+                opacity: Math.random() * 0.3 + 0.1
+            });
+        }
+
+        // Función de dibujo con efectos visuales avanzados
         const draw = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Fondo con gradiente dinámico
+            const gradient = ctx.createRadialGradient(
+                canvas.width / 2, canvas.height / 2, 0,
+                canvas.width / 2, canvas.height / 2, Math.max(canvas.width, canvas.height) / 2
+            );
+            gradient.addColorStop(0, 'rgba(0, 20, 40, 0.95)');
+            gradient.addColorStop(1, 'rgba(0, 5, 15, 1)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Dibujar conexiones
+            // Dibujar partículas flotantes
+            particles.forEach(particle => {
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+                
+                // Rebotar en los bordes
+                if (particle.x <= 0 || particle.x >= canvas.width) particle.vx *= -1;
+                if (particle.y <= 0 || particle.y >= canvas.height) particle.vy *= -1;
+                
+                ctx.globalAlpha = particle.opacity;
+                ctx.fillStyle = '#00ffff';
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.globalAlpha = 1;
+            
+            // Dibujar conexiones con efectos de pulso
             connections.forEach(conn => {
                 if (conn.opacity > 0) {
-                    ctx.strokeStyle = `rgba(0, 255, 255, ${conn.opacity})`;
-                    ctx.lineWidth = 1;
+                    // Línea base
+                    ctx.strokeStyle = `rgba(0, 255, 255, ${conn.opacity * 0.3})`;
+                    ctx.lineWidth = conn.thickness;
                     ctx.beginPath();
                     ctx.moveTo(conn.from.x, conn.from.y);
                     ctx.lineTo(conn.to.x, conn.to.y);
                     ctx.stroke();
+                    
+                    // Efecto de pulso en la conexión
+                    if (conn.active && conn.pulsePosition <= 1) {
+                        const pulseX = conn.from.x + (conn.to.x - conn.from.x) * conn.pulsePosition;
+                        const pulseY = conn.from.y + (conn.to.y - conn.from.y) * conn.pulsePosition;
+                        
+                        ctx.shadowBlur = 15;
+                        ctx.shadowColor = '#00ffff';
+                        ctx.fillStyle = '#ffffff';
+                        ctx.beginPath();
+                        ctx.arc(pulseX, pulseY, 3, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.shadowBlur = 0;
+                        
+                        conn.pulsePosition += conn.pulseSpeed;
+                    }
                 }
             });
             
-            // Dibujar nodos
+            // Dibujar nodos con efectos avanzados
             nodes.forEach(layer => {
                 layer.forEach(node => {
-                    ctx.beginPath();
-                    ctx.arc(node.x, node.y, 8, 0, Math.PI * 2);
-                    
+                    // Actualizar animaciones del nodo
                     if (node.active) {
-                        ctx.fillStyle = '#00ffff';
-                        ctx.shadowBlur = 20;
-                        ctx.shadowColor = '#00ffff';
-                    } else {
-                        ctx.fillStyle = '#333';
-                        ctx.shadowBlur = 0;
+                        node.glowIntensity = Math.min(1, node.glowIntensity + 0.1);
+                        node.currentRadius = node.baseRadius + Math.sin(Date.now() * 0.01 + node.pulsePhase) * 2;
                     }
                     
-                    ctx.fill();
+                    // Círculo base del nodo
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, node.currentRadius, 0, Math.PI * 2);
+                    
+                    if (node.active) {
+                        // Nodo activo con efectos
+                        const glowRadius = node.currentRadius + 15 * node.glowIntensity;
+                        
+                        // Glow exterior
+                        const glowGradient = ctx.createRadialGradient(
+                            node.x, node.y, node.currentRadius,
+                            node.x, node.y, glowRadius
+                        );
+                        glowGradient.addColorStop(0, node.color + 'aa');
+                        glowGradient.addColorStop(1, node.color + '00');
+                        
+                        ctx.fillStyle = glowGradient;
+                        ctx.beginPath();
+                        ctx.arc(node.x, node.y, glowRadius, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        // Núcleo brillante
+                        ctx.fillStyle = node.color;
+                        ctx.shadowBlur = 20;
+                        ctx.shadowColor = node.color;
+                        ctx.beginPath();
+                        ctx.arc(node.x, node.y, node.currentRadius, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        // Anillo interior pulsante
+                        ctx.strokeStyle = '#ffffff';
+                        ctx.lineWidth = 2;
+                        ctx.beginPath();
+                        ctx.arc(node.x, node.y, node.currentRadius * 0.6, 0, Math.PI * 2);
+                        ctx.stroke();
+                        
+                    } else {
+                        // Nodo inactivo
+                        ctx.fillStyle = '#1a1a2e';
+                        ctx.strokeStyle = '#16213e';
+                        ctx.lineWidth = 1;
+                        ctx.fill();
+                        ctx.stroke();
+                    }
+                    
                     ctx.shadowBlur = 0;
                 });
             });
+            
+            // Efectos de rejilla de fondo
+            ctx.strokeStyle = 'rgba(0, 255, 255, 0.05)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < canvas.width; x += 50) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            for (let y = 0; y < canvas.height; y += 50) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
         };
 
-        // Animación progresiva
+        // Animación progresiva mejorada
         let currentLayer = 0;
         let currentNode = 0;
         let animationPhase = 'nodes'; // 'nodes' o 'connections'
@@ -132,9 +251,24 @@ class PortfolioSystem {
             if (currentLayer >= layers.length) return;
 
             if (animationPhase === 'nodes') {
-                // Activar nodos uno por uno
+                // Activar nodos con efectos especiales
                 if (currentNode < nodes[currentLayer].length) {
-                    nodes[currentLayer][currentNode].active = true;
+                    const node = nodes[currentLayer][currentNode];
+                    node.active = true;
+                    
+                    // Efecto de onda expansiva al activar nodo
+                    const rippleEffect = () => {
+                        let rippleRadius = 0;
+                        const maxRipple = 50;
+                        const rippleInterval = setInterval(() => {
+                            rippleRadius += 3;
+                            if (rippleRadius > maxRipple) {
+                                clearInterval(rippleInterval);
+                            }
+                        }, 16);
+                    };
+                    rippleEffect();
+                    
                     currentNode++;
                 } else {
                     // Pasar a activar conexiones
@@ -142,22 +276,25 @@ class PortfolioSystem {
                     currentNode = 0;
                 }
             } else {
-                // Activar conexiones hacia la siguiente capa (múltiples a la vez)
+                // Activar conexiones con efectos de pulso
                 if (currentLayer < layers.length - 1) {
                     const layerConnections = connections.filter(conn => 
                         conn.from.layer === currentLayer && conn.to.layer === currentLayer + 1
                     );
                     
-                    // Activar 2-3 conexiones a la vez para mayor velocidad
-                    const connectionsToActivate = Math.min(3, layerConnections.length - currentNode);
+                    // Activar múltiples conexiones con efectos
+                    const connectionsToActivate = Math.min(4, layerConnections.length - currentNode);
                     for (let i = 0; i < connectionsToActivate && currentNode < layerConnections.length; i++) {
-                        layerConnections[currentNode].active = true;
-                        layerConnections[currentNode].opacity = 0.7;
+                        const conn = layerConnections[currentNode];
+                        conn.active = true;
+                        conn.opacity = 0.8;
+                        conn.pulsePosition = 0;
+                        conn.thickness = 2;
                         currentNode++;
                     }
                     
                     if (currentNode >= layerConnections.length) {
-                        // Pasar a la siguiente capa
+                        // Pasar a la siguiente capa con efectos de cascada
                         currentLayer++;
                         currentNode = 0;
                         animationPhase = 'nodes';
@@ -168,13 +305,45 @@ class PortfolioSystem {
             draw();
         };
 
-        // Iniciar animación - Mucho más rápida
+        // Iniciar animación principal
         const animationInterval = setInterval(() => {
             animate();
             if (currentLayer >= layers.length) {
                 clearInterval(animationInterval);
+                // Iniciar bucle de efectos continuos
+                startContinuousEffects();
             }
-        }, 100); // Reducido de 150ms a 100ms para animación más rápida
+        }, 80); // Más rápido para mayor dinamismo
+
+        // Efectos continuos después de la animación inicial
+        const startContinuousEffects = () => {
+            const continuousLoop = setInterval(() => {
+                // Efectos de pulso aleatorios en nodos activos
+                nodes.forEach(layer => {
+                    layer.forEach(node => {
+                        if (node.active && Math.random() < 0.1) {
+                            node.pulsePhase += Math.PI / 4;
+                        }
+                    });
+                });
+                
+                // Pulsos aleatorios en conexiones
+                connections.forEach(conn => {
+                    if (conn.active && Math.random() < 0.05) {
+                        conn.pulsePosition = 0;
+                    }
+                });
+                
+                draw();
+            }, 100);
+        };
+
+        // Bucle de renderizado continuo para animaciones suaves
+        const renderLoop = () => {
+            draw();
+            requestAnimationFrame(renderLoop);
+        };
+        renderLoop();
 
         // Primera llamada para dibujar el estado inicial
         draw();
@@ -189,14 +358,15 @@ class PortfolioSystem {
         // Initialize neural network animation
         this.initializeNeuralNetworkAnimation();
         
-        // Simulate system initialization messages
+        // Simulate system initialization messages - más espectaculares
         const messages = [
-            "INICIALIZANDO RED NEURONAL...",
-            "ACTIVANDO CAPA DE ENTRADA...", 
-            "PROCESANDO CONEXIONES...",
-            "ACTIVANDO CAPA OCULTA...",
-            "ESTABLECIENDO SALIDAS...",
-            "SISTEMA LISTO."
+            "⚡ INICIALIZANDO RED NEURONAL AVANZADA...",
+            "🔥 ACTIVANDO CAPAS DE PROCESAMIENTO...", 
+            "⚙️ ESTABLECIENDO CONEXIONES SINÁPTICAS...",
+            "🧠 OPTIMIZANDO PESOS NEURONALES...",
+            "🚀 CALIBRANDO ALGORITMOS IA...",
+            "✨ SISTEMA NEURONAL ONLINE",
+            "🎯 LISTO PARA PROCESAR DATOS"
         ];
         
         let messageIndex = 0;
@@ -217,7 +387,7 @@ class PortfolioSystem {
             loadingScreen.classList.add('hidden');
             this.isLoaded = true;
             this.startSystemAnimations();
-        }, 4000); // Reducido a 4 segundos para animación más rápida
+        }, 5500); // Aumentado para ver todos los efectos espectaculares
     }
 
     // Navigation System
@@ -396,12 +566,15 @@ class PortfolioSystem {
             }
         };
 
-        // Start typing after loading screen
-        setTimeout(typeWriter, 3500);
+        // Start typing immediately after loading screen is hidden
+        setTimeout(typeWriter, 500); // Solo un pequeño delay para transición suave
     }
 
     // System Animations
     startSystemAnimations() {
+        // Iniciar el efecto typewriter inmediatamente después de la carga
+        this.setupTypewriter();
+        
         // Animate system status bars
         const statusFills = document.querySelectorAll('.status-fill');
         statusFills.forEach(fill => {

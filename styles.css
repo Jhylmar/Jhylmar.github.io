@@ -75,13 +75,25 @@ body {
 
 .loader-text {
     font-family: var(--font-tech);
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: var(--text-accent);
     margin-top: 30px;
-    letter-spacing: 3px;
-    animation: pulse 2s infinite;
+    letter-spacing: 4px;
+    animation: textPulse 2s infinite, textGlow 3s infinite alternate;
     position: relative;
     z-index: 10;
+    text-shadow: 0 0 20px currentColor;
+    font-weight: bold;
+}
+
+@keyframes textPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+@keyframes textGlow {
+    0% { text-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
+    100% { text-shadow: 0 0 30px currentColor, 0 0 50px currentColor, 0 0 70px currentColor; }
 }
 
 .progress-bar {
