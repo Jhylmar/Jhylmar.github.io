@@ -1,0 +1,125 @@
+[
+  {
+    "id": 1,
+    "title": "Técnico de Mantenimiento de Infraestructura",
+    "company": "Synera S.A.",
+    "period": "Jun 2025 - Ago 2025",
+    "year": 2025,
+    "status": "Finalizado",
+    "description": "Mantenimiento preventivo y correctivo de infraestructura crítica en centros de datos de Petroecuador a nivel nacional.",
+    "activities": [
+      "Diagnóstico y reemplazo de componentes degradados en servidores y sistemas críticos",
+      "Actualización segura de sistemas operativos y firmwares",
+      "Planificación logística de mantenimiento en campo en zonas de sierra, costa y oriente",
+      "Elaboración de informes técnicos detallados"
+    ],
+    "technologies": ["Servidores", "Sistemas operativos", "Firmware", "Infraestructura TI"],
+    "achievements": ["Cobertura nacional en mantenimiento de infraestructura crítica", "Adaptación a condiciones operativas exigentes"],
+    "color": "#2ed573"
+  },
+  {
+    "id": 2,
+    "title": "Ingeniero de Desarrollos e Integración en Sistemas Inteligentes",
+    "company": "Conquito (Proyecto AE-Vision)",
+    "period": "Ene 2025 - Jun 2025",
+    "year": 2025,
+    "status": "Finalizado",
+    "description": "Desarrollo de sistema inteligente de clasificación de desechos con IA, visión artificial y despliegue embebido.",
+    "activities": [
+      "Diseño de sistema de clasificación con entrada de audio y visión artificial",
+      "Integración de modelos entrenados en hardware embebido",
+      "Implementación de interfaz web con Next.js y backend en Nest.js",
+      "Sincronización con Firebase y comunicación en tiempo real vía WebSocket"
+    ],
+    "technologies": ["Machine Learning", "Next.js", "Nest.js", "Firebase", "WebSocket", "LLM", "CSS"],
+    "achievements": ["Despliegue funcional en campo", "Interactividad inteligente con modelos de lenguaje"],
+    "color": "#ffa502"
+  },
+  {
+    "id": 3,
+    "title": "Ingeniero de Automatización y Control Industrial",
+    "company": "Tecnipeso Cia. Ltda.",
+    "period": "Feb 2025 - Abr 2025",
+    "year": 2025,
+    "status": "Finalizado",
+    "description": "Repotenciación de sistema automático de dosificación por pérdida de peso en entorno industrial.",
+    "activities": [
+      "Programación de lógica de control en PLC bajo normativa IEC 61131",
+      "Diseño de HMI conforme a normativa Gedis",
+      "Integración de sensores, bombas y tanques en sistema trazable",
+      "Montaje de tablero eléctrico y de control"
+    ],
+    "technologies": ["PLC", "IEC 61131", "HMI", "Gedis", "Sensores industriales"],
+    "achievements": ["Sistema robusto y trazable", "Supervisión eficiente en tiempo real"],
+    "color": "#3742fa"
+  },
+  {
+    "id": 4,
+    "title": "Ingeniero en Visión Artificial y Sistemas Embebidos",
+    "company": "AISE Technology",
+    "period": "Nov 2024 - Ene 2025",
+    "year": 2024,
+    "status": "Finalizado",
+    "description": "Desarrollo de sistema de videovigilancia inteligente con IA y control físico pan/tilt.",
+    "activities": [
+      "Integración de modelos de IA en Jetson Nano y microcontroladores",
+      "Aplicación de YOLO y SORT para detección y seguimiento",
+      "Análisis de movimientos con MediaPipe",
+      "Control físico de cámara ante eventos críticos"
+    ],
+    "technologies": ["Jetson Nano", "YOLO", "SORT", "MediaPipe", "OpenCV", "Sistemas embebidos"],
+    "achievements": ["Prototipo validado en entorno real", "Respuesta automatizada ante eventos críticos"],
+    "color": "#ff4757"
+  },
+  {
+    "id": 5,
+    "title": "Técnico de Servicio Postventa",
+    "company": "CONAUTO C.A.",
+    "period": "Nov 2024 - Dic 2024",
+    "year": 2024,
+    "status": "Finalizado",
+    "description": "Mantenimiento y puesta en marcha de equipos industriales con soporte técnico directo al cliente.",
+    "activities": [
+      "Diagnóstico y reparación de generadores, compresores y paneles electrónicos",
+      "Gestión de repuestos y coordinación logística",
+      "Elaboración de informes técnicos"
+    ],
+    "technologies": ["Generadores eléctricos", "Paneles electrónicos", "Compresores", "Bombas"],
+    "achievements": ["Soporte técnico postventa eficiente", "Continuidad operativa asegurada"],
+    "color": "#1e90ff"
+  },
+  {
+    "id": 6,
+    "title": "Asistente de Proyectos de Electrónica e IoT",
+    "company": "CONSTECOIN Cia. Ltda.",
+    "period": "Mar 2024 - Abr 2024",
+    "year": 2024,
+    "status": "Finalizado",
+    "description": "Desarrollo de soluciones IoT para alarmas comunitarias y monitoreo remoto de equipos.",
+    "activities": [
+      "Ensamblaje electrónico y mejora de código base",
+      "Implementación de conectividad inalámbrica en sensores industriales",
+      "Supervisión de tableros eléctricos vía plataforma web"
+    ],
+    "technologies": ["IoT", "GPS", "GSM", "Plataformas web", "Sensores industriales"],
+    "achievements": ["Proyecto funcional para gestión municipal", "Monitoreo remoto en tiempo real"],
+    "color": "#2f3542"
+  },
+  {
+    "id": 7,
+    "title": "Asistente de Proyectos de Automatización",
+    "company": "SEIUS S.A. (Distribuidor Schneider)",
+    "period": "Nov 2023 - Oct 2024",
+    "year": 2023,
+    "status": "Finalizado",
+    "description": "Reingeniería de unidades de generación hidroeléctrica en Coca Codo Sinclair.",
+    "activities": [
+      "Diseño de tablero eléctrico de control con PLC modular y sensores industriales",
+      "Actualización tecnológica con HMI bajo ISA 101",
+      "Integración de soluciones de automatización para eficiencia energética"
+    ],
+    "technologies": ["PLC", "Modbus TCP", "RTD", "Encoders", "ISA 101", "IED"],
+    "achievements": ["Optimización energética de unidades de generación", "Supervisión jerárquica y multiclase de alarmas"],
+    "color": "#70a1ff"
+  }
+]

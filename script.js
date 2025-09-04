@@ -3,6 +3,8 @@ class PortfolioSystem {
     constructor() {
         this.isLoaded = false;
         this.currentSection = 'home';
+        this.experienceData = null;
+        this.currentExperienceIndex = 0;
         
         this.init();
     }
@@ -12,12 +14,25 @@ class PortfolioSystem {
         this.setupNavigation();
         this.setupParticles();
         this.setupTypewriter();
-        this.setupAnimations();
         this.setupSkillAnimations();
         this.setupContactForm();
         this.setupScrollEffects();
         this.initializeSystemStatus();
+        
+        // Initialize experience system when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                console.log('🚀 DOM loaded, initializing experience system...');
+                this.initializeExperienceSystem();
+            });
+        } else {
+            // DOM is already ready
+            console.log('🚀 DOM already ready, initializing experience system immediately...');
+            this.initializeExperienceSystem();
+        }
     }
+
+
 
     // Loading Screen
     setupLoadingScreen() {
@@ -212,19 +227,22 @@ class PortfolioSystem {
     // Typewriter Effect
     setupTypewriter() {
         const typewriterElement = document.querySelector('.typewriter');
-        if (!typewriterElement) return;
+        if (!typewriterElement || typewriterElement.dataset.typed === 'true') return;
 
         const text = typewriterElement.getAttribute('data-text');
         const cursor = document.querySelector('.cursor');
         
+        // Mark as being processed to prevent multiple executions
+        typewriterElement.dataset.typed = 'true';
+        
         let i = 0;
-        typewriterElement.textContent = '';
+        typewriterElement.textContent = ''; // Limpiar cualquier contenido previo
         
         const typeWriter = () => {
             if (i < text.length) {
                 typewriterElement.textContent += text.charAt(i);
                 i++;
-                setTimeout(typeWriter, 100);
+                setTimeout(typeWriter, 80);
             } else {
                 // Add blinking cursor animation
                 if (cursor) {
@@ -233,8 +251,8 @@ class PortfolioSystem {
             }
         };
 
-        // Start typing after a delay
-        setTimeout(typeWriter, 2000);
+        // Start typing after loading screen
+        setTimeout(typeWriter, 3500);
     }
 
     // System Animations
@@ -254,408 +272,444 @@ class PortfolioSystem {
         // Start neural network animation
         this.startNeuralNetworkAnimation();
 
-        // Initialize IoT network animation
-        this.startIoTAnimation();
+        // Initialize IoT network animation (commented out - elements don't exist)
+        // this.startIoTAnimation();
     }
 
-    // Enhanced Interactive Skills Animations
+    // Enhanced Skills & Experience System
     setupSkillAnimations() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    this.initializeInteractiveSkills();
+                    if (entry.target.id === 'skills') {
+                        this.animateSkillBars();
+                    } else if (entry.target.id === 'experience') {
+                        this.initializeExperienceSystem();
+                    }
                 }
             });
         }, { threshold: 0.3 });
 
         const skillsSection = document.getElementById('skills');
-        if (skillsSection) {
-            observer.observe(skillsSection);
-        }
-    }
-
-    initializeInteractiveSkills() {
-        this.setupProgrammingTerminal();
-        this.setupAutomationPanel();
-        this.setupAINeuralNetwork();
-        this.setupWebIoTEcosystem();
-    }
-
-    setupProgrammingTerminal() {
-        const terminalItems = document.querySelectorAll('.skill-terminal-item');
+        const experienceSection = document.getElementById('experience');
         
-        // Animate meter bars
-        terminalItems.forEach((item, index) => {
+        if (skillsSection) observer.observe(skillsSection);
+        if (experienceSection) observer.observe(experienceSection);
+    }
+
+    animateSkillBars() {
+        const skillItems = document.querySelectorAll('.skill-item');
+        
+        skillItems.forEach((item, index) => {
+            const progressBar = item.querySelector('.skill-progress');
             const level = item.getAttribute('data-level');
-            const meterBar = item.querySelector('.meter-bar');
             
             setTimeout(() => {
-                if (meterBar) {
-                    meterBar.style.setProperty('--width', level + '%');
-                    meterBar.querySelector('::after') || 
-                    (meterBar.style.width = level + '%');
+                if (progressBar) {
+                    progressBar.style.width = `${level}%`;
                 }
-            }, index * 300);
-
-            // Add click interaction
-            item.addEventListener('click', () => {
-                this.displaySkillDetails(item.getAttribute('data-skill'));
-            });
-
-            // Add hover effect
-            item.addEventListener('mouseenter', () => {
-                this.typeSkillInfo(item.getAttribute('data-skill'));
-            });
-        });
-
-        // Start cursor blinking
-        this.startTerminalCursor();
-    }
-
-    setupAutomationPanel() {
-        const controlButtons = document.querySelectorAll('.control-skill');
-        const radar = document.getElementById('automationRadar');
-
-        if (radar) {
-            this.drawAutomationRadar(radar);
-        }
-
-        controlButtons.forEach((button, index) => {
-            const skillButton = button.querySelector('.skill-button');
-            
-            setTimeout(() => {
-                skillButton.classList.add('active');
-                setTimeout(() => {
-                    skillButton.classList.remove('active');
-                }, 800);
-            }, index * 500);
-
-            skillButton.addEventListener('click', () => {
-                // Remove active from all buttons
-                controlButtons.forEach(btn => 
-                    btn.querySelector('.skill-button').classList.remove('active'));
                 
-                // Add active to clicked button
-                skillButton.classList.add('active');
+                // Add hover interactions
+                item.addEventListener('mouseenter', () => {
+                    item.style.transform = 'translateX(8px) scale(1.02)';
+                });
                 
-                // Update radar focus
-                this.updateRadarFocus(button.getAttribute('data-skill'));
-            });
-        });
-
-        // Start system status animation
-        this.animateSystemStatus();
-    }
-
-    setupAINeuralNetwork() {
-        const neuralNodes = document.querySelectorAll('.neural-node');
-        const aiSkillItems = document.querySelectorAll('.ai-skill-item');
-        
-        // Initialize neural network connections
-        this.drawNeuralConnections();
-        
-        // Start neural activity
-        this.startNeuralActivity();
-        
-        // Setup progress rings
-        aiSkillItems.forEach((item, index) => {
-            const circle = item.querySelector('.progress-ring-circle');
-            const percent = circle.getAttribute('data-percent');
-            
-            setTimeout(() => {
-                this.animateProgressRing(circle, percent);
-            }, index * 400);
-
-            // Add interaction
-            item.addEventListener('click', () => {
-                this.triggerNeuralBurst(item.getAttribute('data-skill'));
-            });
-        });
-    }
-
-    setupWebIoTEcosystem() {
-        const techNodes = document.querySelectorAll('.tech-node');
-        const connectionLines = document.querySelectorAll('.connection-line');
-        
-        // Position nodes dynamically
-        techNodes.forEach((node, index) => {
-            const angle = parseFloat(node.getAttribute('data-angle'));
-            const radius = 120;
-            const x = Math.cos(angle * Math.PI / 180) * radius;
-            const y = Math.sin(angle * Math.PI / 180) * radius;
-            
-            setTimeout(() => {
-                node.style.transform = `translate(${x}px, ${y}px)`;
-                node.style.opacity = '1';
-            }, index * 200);
-        });
-
-        // Start ecosystem animation
-        this.startEcosystemAnimation();
-        
-        // Add node interactions
-        techNodes.forEach(node => {
-            node.addEventListener('click', () => {
-                this.activateEcosystemNode(node);
-            });
-        });
-
-        // Update network stats
-        this.updateNetworkStats();
-    }
-
-    drawAutomationRadar(canvas) {
-        const ctx = canvas.getContext('2d');
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-        const maxRadius = Math.min(centerX, centerY) - 20;
-
-        // Clear canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Draw radar grid
-        ctx.strokeStyle = '#2c5282';
-        ctx.lineWidth = 1;
-        
-        for (let i = 1; i <= 5; i++) {
-            const radius = (maxRadius / 5) * i;
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-            ctx.stroke();
-        }
-
-        // Draw radar lines
-        const skills = ['PLC Siemens', 'PLC Schneider', 'SCADA/HMI', 'Modbus', 'Profinet'];
-        const values = [95, 90, 92, 88, 85];
-        
-        skills.forEach((skill, index) => {
-            const angle = (index * 2 * Math.PI) / skills.length - Math.PI / 2;
-            const x = centerX + Math.cos(angle) * maxRadius;
-            const y = centerY + Math.sin(angle) * maxRadius;
-            
-            ctx.beginPath();
-            ctx.moveTo(centerX, centerY);
-            ctx.lineTo(x, y);
-            ctx.stroke();
-        });
-
-        // Draw skill polygon
-        ctx.strokeStyle = '#2ed573';
-        ctx.fillStyle = 'rgba(46, 213, 115, 0.2)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        
-        values.forEach((value, index) => {
-            const angle = (index * 2 * Math.PI) / values.length - Math.PI / 2;
-            const radius = (value / 100) * maxRadius;
-            const x = centerX + Math.cos(angle) * radius;
-            const y = centerY + Math.sin(angle) * radius;
-            
-            if (index === 0) {
-                ctx.moveTo(x, y);
-            } else {
-                ctx.lineTo(x, y);
-            }
-        });
-        
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-
-        // Draw skill points
-        values.forEach((value, index) => {
-            const angle = (index * 2 * Math.PI) / values.length - Math.PI / 2;
-            const radius = (value / 100) * maxRadius;
-            const x = centerX + Math.cos(angle) * radius;
-            const y = centerY + Math.sin(angle) * radius;
-            
-            ctx.fillStyle = '#00a8ff';
-            ctx.beginPath();
-            ctx.arc(x, y, 4, 0, 2 * Math.PI);
-            ctx.fill();
-        });
-    }
-
-    drawNeuralConnections() {
-        const svg = document.querySelector('.neural-connections');
-        if (!svg) return;
-
-        const layers = [
-            { nodes: 4, x: 20 },
-            { nodes: 5, x: 120 },
-            { nodes: 3, x: 220 },
-            { nodes: 2, x: 320 }
-        ];
-
-        let connections = '';
-        
-        // Connect each layer to the next
-        for (let i = 0; i < layers.length - 1; i++) {
-            const currentLayer = layers[i];
-            const nextLayer = layers[i + 1];
-            
-            for (let j = 0; j < currentLayer.nodes; j++) {
-                for (let k = 0; k < nextLayer.nodes; k++) {
-                    const y1 = 40 + (j * 30);
-                    const y2 = 40 + (k * 30);
-                    
-                    connections += `
-                        <line x1="${currentLayer.x}" y1="${y1}" 
-                              x2="${nextLayer.x}" y2="${y2}" 
-                              stroke="#00a8ff" stroke-width="1" 
-                              opacity="0.3" class="neural-connection"/>
-                    `;
-                }
-            }
-        }
-        
-        svg.innerHTML = connections;
-    }
-
-    startNeuralActivity() {
-        const nodes = document.querySelectorAll('.neural-node');
-        
-        setInterval(() => {
-            // Random activation pattern
-            const activeNodes = Math.floor(Math.random() * 3) + 2;
-            
-            for (let i = 0; i < activeNodes; i++) {
-                const randomNode = nodes[Math.floor(Math.random() * nodes.length)];
-                randomNode.classList.add('active');
-                
-                setTimeout(() => {
-                    randomNode.classList.remove('active');
-                }, 1500);
-            }
-        }, 2000);
-    }
-
-    animateProgressRing(circle, percent) {
-        const circumference = 2 * Math.PI * 25; // radius = 25
-        circle.style.strokeDasharray = circumference;
-        circle.style.strokeDashoffset = circumference;
-        circle.style.stroke = '#2ed573';
-        circle.style.strokeWidth = '3';
-        
-        setTimeout(() => {
-            const offset = circumference - (percent / 100) * circumference;
-            circle.style.strokeDashoffset = offset;
-            circle.style.transition = 'stroke-dashoffset 2s ease-in-out';
-        }, 100);
-    }
-
-    startEcosystemAnimation() {
-        const hub = document.querySelector('.hub-core');
-        const connections = document.querySelectorAll('.connection-line');
-        
-        // Animate hub rotation
-        if (hub) {
-            hub.style.animation = 'hubRotate 20s linear infinite';
-        }
-        
-        // Animate data flow
-        setInterval(() => {
-            connections.forEach((line, index) => {
-                setTimeout(() => {
-                    line.style.opacity = '1';
-                    line.style.background = 'linear-gradient(90deg, #2ed573, #00a8ff)';
-                    
-                    setTimeout(() => {
-                        line.style.opacity = '0.6';
-                        line.style.background = 'linear-gradient(90deg, #00a8ff, #2ed573)';
-                    }, 1000);
-                }, index * 500);
-            });
-        }, 4000);
-    }
-
-    updateNetworkStats() {
-        const activeConnections = document.getElementById('active-connections');
-        const avgPerformance = document.getElementById('avg-performance');
-        
-        setInterval(() => {
-            if (activeConnections) {
-                const connections = 3 + Math.floor(Math.random() * 3);
-                activeConnections.textContent = connections;
-            }
-            
-            if (avgPerformance) {
-                const performance = 85 + Math.floor(Math.random() * 10);
-                avgPerformance.textContent = performance + '%';
-            }
-        }, 3000);
-    }
-
-    startTerminalCursor() {
-        const cursor = document.querySelector('.cursor');
-        if (cursor) {
-            setInterval(() => {
-                cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
-            }, 500);
-        }
-    }
-
-    triggerNeuralBurst(skillType) {
-        const nodes = document.querySelectorAll('.neural-node');
-        nodes.forEach((node, index) => {
-            setTimeout(() => {
-                node.classList.add('active');
-                setTimeout(() => {
-                    node.classList.remove('active');
-                }, 300);
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = 'translateX(0) scale(1)';
+                });
             }, index * 100);
         });
     }
 
-    activateEcosystemNode(node) {
-        // Remove active from all nodes
-        document.querySelectorAll('.tech-node').forEach(n => 
-            n.classList.remove('active'));
+    async initializeExperienceSystem() {
+        console.log('� LOADING EXPERIENCE DATA FROM JSON...');
+        if (this.experienceSystemInitialized) {
+            console.log('⚠️ System already initialized');
+            return;
+        }
+        this.experienceSystemInitialized = true;
+
+        try {
+            // Cargar datos desde el archivo JSON
+            const response = await fetch('./experience-data.json');
+            console.log('📥 JSON Response status:', response.status);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const jsonData = await response.json();
+            console.log('✅ JSON Data loaded successfully:', jsonData);
+            
+            // Si el JSON es un array directo, lo envolvemos en un objeto experiences
+            if (Array.isArray(jsonData)) {
+                this.experienceData = { experiences: jsonData };
+            } else {
+                // Si ya tiene la estructura esperada
+                this.experienceData = jsonData;
+            }
+            
+            console.log('🔄 Experience data set:', this.experienceData.experiences?.length, 'experiences loaded');
+            
+        } catch (error) {
+            console.error('❌ Error loading JSON:', error);
+            alert('Error al cargar los datos de experiencia desde JSON. Verifica que el archivo experience-data.json existe y tiene el formato correcto.');
+            return;
+        }
+
+        console.log('✅ Data loaded:', this.experienceData);
+
+        this.setupExperienceInteractions();
         
-        // Add active to clicked node
-        node.classList.add('active');
-        
-        // Pulse effect
-        const circle = node.querySelector('.node-circle');
-        circle.style.transform = 'scale(1.3)';
-        circle.style.boxShadow = '0 0 30px rgba(46, 213, 115, 0.5)';
+        // Give DOM time to render, then initialize
+        setTimeout(() => {
+            console.log('🔄 Initializing after timeout...');
+            this.selectExperience(0);
+            this.initializeInfoPanel();
+        }, 500); // Increased timeout
+    }
+
+    setupExperienceInteractions() {
+        console.log('🔧 Setting up experience interactions...');
+        const prevBtn = document.getElementById('prevExperience');
+        const nextBtn = document.getElementById('nextExperience');
+
+        console.log('🎯 Found elements:', { prevBtn, nextBtn });
+
+        // Navigation arrows with futuristic effects
+        if (prevBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                console.log('⬅️ Previous button clicked');
+                e.preventDefault();
+                this.navigateExperience(-1);
+                this.triggerNavigationEffect(prevBtn);
+            });
+        } else {
+            console.error('❌ Previous button not found!');
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                console.log('➡️ Next button clicked');
+                e.preventDefault();
+                this.navigateExperience(1);
+                this.triggerNavigationEffect(nextBtn);
+            });
+        } else {
+            console.error('❌ Next button not found!');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                console.log('⌨️ Left arrow key pressed');
+                this.navigateExperience(-1);
+            } else if (e.key === 'ArrowRight') {
+                console.log('⌨️ Right arrow key pressed');
+                this.navigateExperience(1);
+            }
+        });
+    }
+
+    triggerNavigationEffect(button) {
+        // Add visual feedback for navigation
+        button.style.transform = button.classList.contains('nav-left') 
+            ? 'translateY(-50%) scale(0.9) translateX(-5px)' 
+            : 'translateY(-50%) scale(0.9) translateX(5px)';
         
         setTimeout(() => {
-            circle.style.transform = 'scale(1)';
-            circle.style.boxShadow = 'none';
-        }, 500);
+            button.style.transform = button.classList.contains('nav-left')
+                ? 'translateY(-50%) scale(1.1)'
+                : 'translateY(-50%) scale(1.1)';
+        }, 150);
+        
+        setTimeout(() => {
+            button.style.transform = '';
+        }, 300);
     }
 
-    displaySkillDetails(skill) {
-        console.log(`Displaying details for: ${skill}`);
-        // Here you could add a modal or detailed view
+    initializeInfoPanel() {
+        console.log('📱 Initializing info panel...');
+        const activitiesBtn = document.getElementById('activitiesBtn');
+        const technologiesBtn = document.getElementById('technologiesBtn');
+        const achievementsBtn = document.getElementById('achievementsBtn');
+
+        console.log('🎮 Panel buttons found:', { activitiesBtn, technologiesBtn, achievementsBtn });
+
+        // Set default active panel
+        console.log('🏆 Setting default panel to achievements...');
+        this.showPanelContent('achievements');
+
+        // Panel button interactions
+        [activitiesBtn, technologiesBtn, achievementsBtn].forEach(btn => {
+            if (btn) {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('🎯 Panel button clicked:', btn.id);
+                    
+                    // Remove active class from all buttons
+                    document.querySelectorAll('.control-button').forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    
+                    // Show corresponding content
+                    const panelType = btn.id.replace('Btn', '');
+                    console.log('📋 Showing panel type:', panelType);
+                    this.showPanelContent(panelType);
+                    
+                    // Add click effect
+                    this.triggerPanelEffect(btn);
+                });
+            } else {
+                console.error('❌ Button not found for panel interaction');
+            }
+        });
     }
 
-    typeSkillInfo(skill) {
-        const cursor = document.querySelector('.cursor');
-        if (cursor) {
-            cursor.textContent = ` ${skill} analysis...`;
-            setTimeout(() => {
-                cursor.textContent = '|';
-            }, 1500);
+    triggerPanelEffect(button) {
+        button.style.transform = 'translateY(-2px) scale(0.95)';
+        setTimeout(() => {
+            button.style.transform = 'translateY(-2px) scale(1.05)';
+        }, 100);
+        setTimeout(() => {
+            button.style.transform = '';
+        }, 200);
+    }
+
+    selectExperience(index) {
+        if (!this.experienceData || !this.experienceData.experiences || index < 0 || index >= this.experienceData.experiences.length) {
+            console.warn('Invalid experience data or index');
+            return;
+        }
+
+        this.currentExperienceIndex = index;
+        const experience = this.experienceData.experiences[index];
+        
+        if (!experience) {
+            console.error(`No experience found at index ${index}`);
+            return;
+        }
+
+        // Update center console with sweep effect
+        this.updateCenterConsole(experience);
+        
+        // Update info panel content based on currently active panel
+        const activeButton = document.querySelector('.control-button.active');
+        if (activeButton) {
+            const panelType = activeButton.id.replace('Btn', '');
+            this.showPanelContent(panelType);
         }
     }
 
-    updateRadarFocus(skill) {
-        console.log(`Radar focused on: ${skill}`);
-        // Update radar visualization focus
+    navigateExperience(direction) {
+        if (!this.experienceData || !this.experienceData.experiences) {
+            console.warn('No experience data available');
+            return;
+        }
+
+        let newIndex = this.currentExperienceIndex + direction;
+        const total = this.experienceData.experiences.length;
+        
+        if (newIndex < 0) {
+            newIndex = total - 1;
+        } else if (newIndex >= total) {
+            newIndex = 0;
+        }
+        
+        // Add sweep transition effect
+        this.triggerHorizontalSweep(direction > 0 ? 'left' : 'right');
+        
+        setTimeout(() => {
+            this.selectExperience(newIndex);
+        }, 300);
     }
 
-    animateSystemStatus() {
-        const indicator = document.querySelector('.status-indicator');
-        if (indicator) {
-            setInterval(() => {
-                indicator.style.transform = 'scale(1.2)';
-                setTimeout(() => {
-                    indicator.style.transform = 'scale(1)';
-                }, 200);
-            }, 2000);
+    updateCenterConsole(experience) {
+        const titleElement = document.getElementById('currentTitle');
+        const companyElement = document.getElementById('currentCompany');
+        const statusElement = document.getElementById('currentStatus');
+        const console = document.querySelector('.center-console');
+        const semicircleBase = document.querySelector('.semicircle-base');
+
+        // Apply dynamic color from experience data
+        if (experience.color) {
+            if (console) {
+                console.style.setProperty('--experience-color', experience.color);
+                console.style.borderColor = experience.color + '40'; // 25% opacity
+            }
+            
+            if (semicircleBase) {
+                // Update the semicircle gradient colors
+                semicircleBase.style.background = `linear-gradient(180deg,
+                    ${experience.color}10 0%,
+                    ${experience.color}05 30%,
+                    rgba(30, 39, 46, 0.8) 70%,
+                    var(--dark-bg) 100%)`;
+                
+                // Update the border gradient
+                const beforeElement = semicircleBase;
+                beforeElement.style.setProperty('--dynamic-color', experience.color);
+            }
+            
+            // Update status indicator color
+            const statusIndicator = document.querySelector('.status-indicator');
+            if (statusIndicator) {
+                statusIndicator.style.backgroundColor = experience.color;
+                statusIndicator.style.boxShadow = `0 0 15px ${experience.color}`;
+            }
         }
+
+        // Fade out effect
+        [titleElement, companyElement, statusElement].forEach(el => {
+            if (el) el.style.opacity = '0';
+        });
+
+        setTimeout(() => {
+            if (titleElement) {
+                titleElement.textContent = experience.title;
+                titleElement.style.opacity = '1';
+                if (experience.color) {
+                    titleElement.style.textShadow = `0 0 10px ${experience.color}30`;
+                }
+            }
+            if (companyElement) {
+                companyElement.textContent = experience.company;
+                companyElement.style.opacity = '1';
+            }
+            if (statusElement) {
+                statusElement.textContent = experience.status === 'Actual' ? 'POSICIÓN ACTUAL' : 'EXPERIENCIA PREVIA';
+                statusElement.style.opacity = '1';
+                if (experience.color) {
+                    statusElement.style.textShadow = `0 0 8px ${experience.color}30`;
+                }
+            }
+        }, 300);
+    }
+
+    showPanelContent(type) {
+        console.log('📺 Showing panel content for type:', type);
+        console.log('💾 Experience data available:', !!this.experienceData);
+        console.log('📊 Current index:', this.currentExperienceIndex);
+        
+        if (!this.experienceData || !this.experienceData.experiences[this.currentExperienceIndex]) {
+            console.error('❌ No experience data available');
+            return;
+        }
+        
+        const experience = this.experienceData.experiences[this.currentExperienceIndex];
+        console.log('🎯 Current experience:', experience.title);
+        
+        const contentDisplay = document.getElementById('contentDisplay');
+        console.log('🖥️ Content display element found:', !!contentDisplay);
+        
+        if (!contentDisplay) {
+            console.error('❌ Content display element not found');
+            return;
+        }
+
+        // Fade out current content
+        contentDisplay.style.opacity = '0';
+        
+        setTimeout(() => {
+            let content = '';
+            
+            switch(type) {
+                case 'activities':
+                    content = this.generateActivitiesContent(experience.activities);
+                    console.log('📋 Generated activities content');
+                    break;
+                case 'technologies':
+                    content = this.generateTechnologiesContent(experience.technologies);
+                    console.log('⚙️ Generated technologies content');
+                    break;
+                case 'achievements':
+                    content = this.generateAchievementsContent(experience.achievements);
+                    console.log('🏆 Generated achievements content');
+                    break;
+                default:
+                    content = '<p>Contenido no disponible</p>';
+                    console.log('⚠️ No content type matched');
+            }
+            
+            console.log('📝 Setting content:', content.substring(0, 100) + '...');
+            contentDisplay.innerHTML = content;
+            contentDisplay.style.opacity = '1';
+        }, 200);
+    }
+
+    generateActivitiesContent(activities) {
+        if (!activities || !Array.isArray(activities) || activities.length === 0) {
+            return '<p>No hay actividades registradas para esta experiencia.</p>';
+        }
+        
+        const activitiesList = activities.map(activity => 
+            `<li>${activity}</li>`
+        ).join('');
+        
+        return `<ul>${activitiesList}</ul>`;
+    }
+
+    generateTechnologiesContent(technologies) {
+        if (!technologies || !Array.isArray(technologies) || technologies.length === 0) {
+            return '<p>No hay tecnologías registradas para esta experiencia.</p>';
+        }
+        
+        const techTags = technologies.map(tech => 
+            `<div class="tech-tag-modern">${tech}</div>`
+        ).join('');
+        
+        return `<div class="tech-tags-grid">${techTags}</div>`;
+    }
+
+    generateAchievementsContent(achievements) {
+        if (!achievements || !Array.isArray(achievements) || achievements.length === 0) {
+            return '<p>No hay logros registrados para esta experiencia.</p>';
+        }
+
+        const achievementIcons = ['🎯', '📈', '⚡', '🏆', '💡', '🚀', '💪', '🌟'];
+        
+        const achievementItems = achievements.map((achievement, index) => 
+            `<div class="achievement-item-modern">
+                <div class="achievement-icon-modern">${achievementIcons[index % achievementIcons.length]}</div>
+                <div class="achievement-text-modern">${achievement}</div>
+            </div>`
+        ).join('');
+        
+        return achievementItems;
+    }
+
+    triggerHorizontalSweep(direction) {
+        // Create sweep overlay
+        const sweepOverlay = document.createElement('div');
+        sweepOverlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            ${direction === 'left' ? 'left: -100vw' : 'right: -100vw'};
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(0, 168, 255, 0.1) 30%, 
+                rgba(0, 168, 255, 0.3) 50%, 
+                rgba(0, 168, 255, 0.1) 70%, 
+                transparent 100%);
+            z-index: 1000;
+            pointer-events: none;
+        `;
+        
+        document.body.appendChild(sweepOverlay);
+        
+        // Animate sweep
+        requestAnimationFrame(() => {
+            sweepOverlay.style.transition = 'all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
+            sweepOverlay.style[direction] = '100vw';
+        });
+        
+        // Remove overlay after animation
+        setTimeout(() => {
+            document.body.removeChild(sweepOverlay);
+        }, 600);
     }
 
     // Neural Network Animation
@@ -688,20 +742,37 @@ class PortfolioSystem {
         const iotDevices = document.querySelectorAll('.iot-device');
         const iotConnections = document.querySelectorAll('.iot-connection');
 
+        // Only run if elements exist
+        if (iotDevices.length === 0 && iotConnections.length === 0) {
+            return;
+        }
+
         setInterval(() => {
             // Animate device activity
-            const randomDevice = iotDevices[Math.floor(Math.random() * iotDevices.length)];
-            randomDevice.style.transform += ' scale(1.2)';
-            setTimeout(() => {
-                randomDevice.style.transform = randomDevice.style.transform.replace(' scale(1.2)', '');
-            }, 500);
+            if (iotDevices.length > 0) {
+                const randomDevice = iotDevices[Math.floor(Math.random() * iotDevices.length)];
+                if (randomDevice && randomDevice.style) {
+                    randomDevice.style.transform += ' scale(1.2)';
+                    setTimeout(() => {
+                        if (randomDevice && randomDevice.style) {
+                            randomDevice.style.transform = randomDevice.style.transform.replace(' scale(1.2)', '');
+                        }
+                    }, 500);
+                }
+            }
 
             // Animate data transmission
-            const randomConnection = iotConnections[Math.floor(Math.random() * iotConnections.length)];
-            randomConnection.style.background = '#2ed573';
-            setTimeout(() => {
-                randomConnection.style.background = '#00a8ff';
-            }, 1000);
+            if (iotConnections.length > 0) {
+                const randomConnection = iotConnections[Math.floor(Math.random() * iotConnections.length)];
+                if (randomConnection && randomConnection.style) {
+                    randomConnection.style.background = '#2ed573';
+                    setTimeout(() => {
+                        if (randomConnection && randomConnection.style) {
+                            randomConnection.style.background = '#00a8ff';
+                        }
+                    }, 1000);
+                }
+            }
         }, 3000);
     }
 
@@ -1043,3 +1114,16 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Inicializar el sistema cuando el documento esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Initializing Portfolio System...');
+    new PortfolioSystem();
+});
+
+// También inicializar si el DOM ya está cargado
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new PortfolioSystem());
+} else {
+    new PortfolioSystem();
+}
