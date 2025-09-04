@@ -32,47 +32,192 @@ class PortfolioSystem {
         }
     }
 
+    // Neural Network Animation for Loading Screen
+    initializeNeuralNetworkAnimation() {
+        const canvas = document.getElementById('neural-network');
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        
+        // Ajustar canvas al tamaño de pantalla
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Configuración de la red neuronal
+        const layers = [4, 6, 3]; // Capas: entrada, oculta, salida
+        const nodes = [];
+        const connections = [];
+        
+        // Crear nodos
+        const layerSpacing = canvas.width / (layers.length + 1);
+        layers.forEach((nodeCount, layerIndex) => {
+            const layerNodes = [];
+            const nodeSpacing = canvas.height / (nodeCount + 1);
+            
+            for (let i = 0; i < nodeCount; i++) {
+                layerNodes.push({
+                    x: layerSpacing * (layerIndex + 1),
+                    y: nodeSpacing * (i + 1),
+                    active: false,
+                    layer: layerIndex
+                });
+            }
+            nodes.push(layerNodes);
+        });
+
+        // Crear conexiones (reducidas - solo algunas conexiones estratégicas)
+        for (let i = 0; i < layers.length - 1; i++) {
+            for (let j = 0; j < nodes[i].length; j++) {
+                // En lugar de conectar todos con todos, conectar solo algunos nodos
+                const connectionCount = Math.min(3, nodes[i + 1].length); // Máximo 3 conexiones por nodo
+                for (let k = 0; k < connectionCount; k++) {
+                    const targetIndex = Math.floor((k * nodes[i + 1].length) / connectionCount);
+                    connections.push({
+                        from: nodes[i][j],
+                        to: nodes[i + 1][targetIndex],
+                        active: false,
+                        opacity: 0
+                    });
+                }
+            }
+        }
+
+        // Función de dibujo
+        const draw = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Dibujar conexiones
+            connections.forEach(conn => {
+                if (conn.opacity > 0) {
+                    ctx.strokeStyle = `rgba(0, 255, 255, ${conn.opacity})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(conn.from.x, conn.from.y);
+                    ctx.lineTo(conn.to.x, conn.to.y);
+                    ctx.stroke();
+                }
+            });
+            
+            // Dibujar nodos
+            nodes.forEach(layer => {
+                layer.forEach(node => {
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, 8, 0, Math.PI * 2);
+                    
+                    if (node.active) {
+                        ctx.fillStyle = '#00ffff';
+                        ctx.shadowBlur = 20;
+                        ctx.shadowColor = '#00ffff';
+                    } else {
+                        ctx.fillStyle = '#333';
+                        ctx.shadowBlur = 0;
+                    }
+                    
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                });
+            });
+        };
+
+        // Animación progresiva
+        let currentLayer = 0;
+        let currentNode = 0;
+        let animationPhase = 'nodes'; // 'nodes' o 'connections'
+
+        const animate = () => {
+            if (currentLayer >= layers.length) return;
+
+            if (animationPhase === 'nodes') {
+                // Activar nodos uno por uno
+                if (currentNode < nodes[currentLayer].length) {
+                    nodes[currentLayer][currentNode].active = true;
+                    currentNode++;
+                } else {
+                    // Pasar a activar conexiones
+                    animationPhase = 'connections';
+                    currentNode = 0;
+                }
+            } else {
+                // Activar conexiones hacia la siguiente capa (múltiples a la vez)
+                if (currentLayer < layers.length - 1) {
+                    const layerConnections = connections.filter(conn => 
+                        conn.from.layer === currentLayer && conn.to.layer === currentLayer + 1
+                    );
+                    
+                    // Activar 2-3 conexiones a la vez para mayor velocidad
+                    const connectionsToActivate = Math.min(3, layerConnections.length - currentNode);
+                    for (let i = 0; i < connectionsToActivate && currentNode < layerConnections.length; i++) {
+                        layerConnections[currentNode].active = true;
+                        layerConnections[currentNode].opacity = 0.7;
+                        currentNode++;
+                    }
+                    
+                    if (currentNode >= layerConnections.length) {
+                        // Pasar a la siguiente capa
+                        currentLayer++;
+                        currentNode = 0;
+                        animationPhase = 'nodes';
+                    }
+                }
+            }
+            
+            draw();
+        };
+
+        // Iniciar animación - Mucho más rápida
+        const animationInterval = setInterval(() => {
+            animate();
+            if (currentLayer >= layers.length) {
+                clearInterval(animationInterval);
+            }
+        }, 100); // Reducido de 150ms a 100ms para animación más rápida
+
+        // Primera llamada para dibujar el estado inicial
+        draw();
+    }
+
 
 
     // Loading Screen
     setupLoadingScreen() {
         const loadingScreen = document.getElementById('loading-screen');
-        const progressFill = document.querySelector('.progress-fill');
         
-        let progress = 0;
-        const loadingInterval = setInterval(() => {
-            progress += Math.random() * 15;
-            if (progress >= 100) {
-                progress = 100;
-                clearInterval(loadingInterval);
-                
-                setTimeout(() => {
-                    loadingScreen.classList.add('hidden');
-                    this.isLoaded = true;
-                    this.startSystemAnimations();
-                }, 500);
-            }
-            progressFill.style.width = `${progress}%`;
-        }, 150);
-
+        // Initialize neural network animation
+        this.initializeNeuralNetworkAnimation();
+        
         // Simulate system initialization messages
         const messages = [
-            "Inicializando sistemas de automatización...",
-            "Cargando módulos de visión artificial...",
-            "Conectando protocolos industriales...",
-            "Activando interfaces de control...",
-            "Sistema listo para operación."
+            "INICIALIZANDO RED NEURONAL...",
+            "ACTIVANDO CAPA DE ENTRADA...", 
+            "PROCESANDO CONEXIONES...",
+            "ACTIVANDO CAPA OCULTA...",
+            "ESTABLECIENDO SALIDAS...",
+            "SISTEMA LISTO."
         ];
         
         let messageIndex = 0;
         const messageInterval = setInterval(() => {
             if (messageIndex < messages.length) {
-                document.querySelector('.loader-text').textContent = messages[messageIndex];
+                const loaderText = document.querySelector('.loader-text');
+                if (loaderText) {
+                    loaderText.textContent = messages[messageIndex];
+                }
                 messageIndex++;
             } else {
                 clearInterval(messageInterval);
             }
-        }, 600);
+        }, 600); // Más rápido: cada 600ms
+
+        // Hide loading screen after animation completes
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+            this.isLoaded = true;
+            this.startSystemAnimations();
+        }, 4000); // Reducido a 4 segundos para animación más rápida
     }
 
     // Navigation System
