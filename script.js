@@ -39,16 +39,27 @@ class PortfolioSystem {
 
         const ctx = canvas.getContext('2d');
         
-        // Ajustar canvas al tamaño de pantalla
+        // Detección de dispositivo móvil al inicio
+        const isMobile = window.innerWidth <= 768;
+        
+        // Ajustar canvas al tamaño de pantalla con resolución reducida en móviles
         const resizeCanvas = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            if (isMobile) {
+                // Reducir resolución significativamente en móviles
+                canvas.width = window.innerWidth * 0.5;
+                canvas.height = window.innerHeight * 0.5;
+                canvas.style.width = window.innerWidth + 'px';
+                canvas.style.height = window.innerHeight + 'px';
+            } else {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
         };
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        // Configuración de la red neuronal con más capas para mayor impacto visual
-        const layers = [5, 8, 6, 4]; // 4 capas para más complejidad visual
+        // Configuración de la red neuronal ultra-optimizada
+        const layers = isMobile ? [3, 3, 2] : [4, 4, 4, 3]; // Móviles: 8 nodos, Desktop: 15 nodos
         const nodes = [];
         const connections = [];
         const pulses = []; // Para efectos de pulso en las conexiones
@@ -79,8 +90,10 @@ class PortfolioSystem {
         // Crear conexiones con efectos de pulso
         for (let i = 0; i < layers.length - 1; i++) {
             for (let j = 0; j < nodes[i].length; j++) {
-                // En lugar de conectar todos con todos, conectar solo algunos nodos
-                const connectionCount = Math.min(4, nodes[i + 1].length); // Aumentado a 4 para más conexiones
+                // Optimizado: conectar menos nodos en móviles para mejor rendimiento
+                const connectionCount = isMobile ? 
+                    Math.min(2, nodes[i + 1].length) : // Móviles: máximo 2 conexiones
+                    Math.min(3, nodes[i + 1].length);  // Desktop: máximo 3 conexiones
                 for (let k = 0; k < connectionCount; k++) {
                     const targetIndex = Math.floor((k * nodes[i + 1].length) / connectionCount);
                     connections.push({
@@ -96,9 +109,10 @@ class PortfolioSystem {
             }
         }
 
-        // Partículas flotantes para ambiente
+        // Partículas ultra-optimizadas para móviles
+        const particleCount = isMobile ? 3 : 15; // Solo 3 partículas en móviles
         const particles = [];
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < particleCount; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
@@ -109,9 +123,41 @@ class PortfolioSystem {
             });
         }
 
-        // Función de dibujo con efectos visuales avanzados
+        // Función de dibujo ultra-optimizada para móviles
         const draw = () => {
-            // Fondo con gradiente dinámico
+            if (isMobile) {
+                // Versión ultra-simplificada para móviles
+                ctx.fillStyle = 'rgba(0, 15, 30, 1)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Solo dibujar nodos activos sin efectos
+                nodes.forEach(layer => {
+                    layer.forEach(node => {
+                        if (node.active) {
+                            ctx.fillStyle = node.color;
+                            ctx.beginPath();
+                            ctx.arc(node.x, node.y, node.baseRadius, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+                    });
+                });
+                
+                // Conexiones simples sin efectos
+                connections.forEach(conn => {
+                    if (conn.opacity > 0) {
+                        ctx.strokeStyle = `rgba(0, 255, 255, ${conn.opacity * 0.5})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(conn.from.x, conn.from.y);
+                        ctx.lineTo(conn.to.x, conn.to.y);
+                        ctx.stroke();
+                    }
+                });
+                
+                return; // Salir temprano para móviles
+            }
+            
+            // Versión completa para desktop
             const gradient = ctx.createRadialGradient(
                 canvas.width / 2, canvas.height / 2, 0,
                 canvas.width / 2, canvas.height / 2, Math.max(canvas.width, canvas.height) / 2
@@ -149,18 +195,23 @@ class PortfolioSystem {
                     ctx.lineTo(conn.to.x, conn.to.y);
                     ctx.stroke();
                     
-                    // Efecto de pulso en la conexión
+                    // Efecto de pulso optimizado para móviles
                     if (conn.active && conn.pulsePosition <= 1) {
                         const pulseX = conn.from.x + (conn.to.x - conn.from.x) * conn.pulsePosition;
                         const pulseY = conn.from.y + (conn.to.y - conn.from.y) * conn.pulsePosition;
                         
-                        ctx.shadowBlur = 15;
-                        ctx.shadowColor = '#00ffff';
+                        // Simplificar efectos en móviles
+                        if (!isMobile) {
+                            ctx.shadowBlur = 15;
+                            ctx.shadowColor = '#00ffff';
+                        }
                         ctx.fillStyle = '#ffffff';
                         ctx.beginPath();
-                        ctx.arc(pulseX, pulseY, 3, 0, Math.PI * 2);
+                        ctx.arc(pulseX, pulseY, isMobile ? 2 : 3, 0, Math.PI * 2);
                         ctx.fill();
-                        ctx.shadowBlur = 0;
+                        if (!isMobile) {
+                            ctx.shadowBlur = 0;
+                        }
                         
                         conn.pulsePosition += conn.pulseSpeed;
                     }
@@ -181,23 +232,39 @@ class PortfolioSystem {
                     ctx.arc(node.x, node.y, node.currentRadius, 0, Math.PI * 2);
                     
                     if (node.active) {
-                        // Nodo activo con efectos
-                        const glowRadius = node.currentRadius + 15 * node.glowIntensity;
-                        
-                        // Glow exterior
-                        const glowGradient = ctx.createRadialGradient(
-                            node.x, node.y, node.currentRadius,
-                            node.x, node.y, glowRadius
-                        );
-                        glowGradient.addColorStop(0, node.color + 'aa');
-                        glowGradient.addColorStop(1, node.color + '00');
-                        
-                        ctx.fillStyle = glowGradient;
-                        ctx.beginPath();
-                        ctx.arc(node.x, node.y, glowRadius, 0, Math.PI * 2);
-                        ctx.fill();
-                        
-                        // Núcleo brillante
+                        // Efectos optimizados según dispositivo
+                        if (isMobile) {
+                            // Versión simplificada para móviles
+                            ctx.fillStyle = node.color;
+                            ctx.beginPath();
+                            ctx.arc(node.x, node.y, node.currentRadius, 0, Math.PI * 2);
+                            ctx.fill();
+                        } else {
+                            // Versión completa para desktop
+                            const glowRadius = node.currentRadius + 15 * node.glowIntensity;
+                            
+                            // Glow exterior
+                            const glowGradient = ctx.createRadialGradient(
+                                node.x, node.y, node.currentRadius,
+                                node.x, node.y, glowRadius
+                            );
+                            glowGradient.addColorStop(0, node.color + 'aa');
+                            glowGradient.addColorStop(1, node.color + '00');
+                            
+                            ctx.fillStyle = glowGradient;
+                            ctx.beginPath();
+                            ctx.arc(node.x, node.y, glowRadius, 0, Math.PI * 2);
+                            ctx.fill();
+                            
+                            // Núcleo brillante
+                            ctx.fillStyle = node.color;
+                            ctx.shadowBlur = 20;
+                            ctx.shadowColor = node.color;
+                            ctx.beginPath();
+                            ctx.arc(node.x, node.y, node.currentRadius, 0, Math.PI * 2);
+                            ctx.fill();
+                            ctx.shadowBlur = 0;
+                        }
                         ctx.fillStyle = node.color;
                         ctx.shadowBlur = 20;
                         ctx.shadowColor = node.color;
@@ -338,9 +405,16 @@ class PortfolioSystem {
             }, 100);
         };
 
-        // Bucle de renderizado continuo para animaciones suaves
-        const renderLoop = () => {
-            draw();
+        // Bucle de renderizado ultra-optimizado para móviles
+        let lastFrame = 0;
+        const targetFPS = isMobile ? 20 : 60; // 20fps en móviles, 60fps en desktop
+        const frameInterval = 1000 / targetFPS;
+        
+        const renderLoop = (currentTime) => {
+            if (currentTime - lastFrame >= frameInterval) {
+                draw();
+                lastFrame = currentTime;
+            }
             requestAnimationFrame(renderLoop);
         };
         renderLoop();
@@ -354,11 +428,20 @@ class PortfolioSystem {
     // Loading Screen
     setupLoadingScreen() {
         const loadingScreen = document.getElementById('loading-screen');
+        const isMobile = window.innerWidth <= 768;
         
-        // Initialize neural network animation
+        // En móviles, saltar directamente al contenido
+        if (isMobile) {
+            loadingScreen.classList.add('hidden');
+            this.isLoaded = true;
+            this.startSystemAnimations();
+            return; // Salir temprano para móviles
+        }
+        
+        // Initialize neural network animation solo en desktop
         this.initializeNeuralNetworkAnimation();
         
-        // Simulate system initialization messages - más espectaculares
+        // Mensajes solo para desktop
         const messages = [
             "⚡ INICIALIZANDO RED NEURONAL AVANZADA...",
             "🔥 ACTIVANDO CAPAS DE PROCESAMIENTO...", 
@@ -380,14 +463,14 @@ class PortfolioSystem {
             } else {
                 clearInterval(messageInterval);
             }
-        }, 600); // Más rápido: cada 600ms
+        }, 600);
 
-        // Hide loading screen after animation completes
+        // Hide loading screen después de la animación completa en desktop
         setTimeout(() => {
             loadingScreen.classList.add('hidden');
             this.isLoaded = true;
             this.startSystemAnimations();
-        }, 5500); // Aumentado para ver todos los efectos espectaculares
+        }, 5500);
     }
 
     // Navigation System

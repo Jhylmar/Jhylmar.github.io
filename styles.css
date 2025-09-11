@@ -35,12 +35,20 @@
 }
 
 /* Estilos base */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
 body {
     font-family: var(--font-modern);
     background: var(--dark-bg);
     color: var(--text-primary);
     overflow-x: hidden;
     line-height: 1.6;
+    position: relative;
 }
 
 /* Loading Screen */
@@ -460,6 +468,8 @@ body {
     margin-left: 280px;
     min-height: 100vh;
     position: relative;
+    width: calc(100% - 280px);
+    max-width: 100%;
 }
 
 .section {
@@ -2457,8 +2467,8 @@ body {
     to { transform: translateX(100px); }
 }
 
-/* Responsive Design */
-@media (max-width: 1200px) {
+/* Responsive Design - Tablets y dispositivos intermedios */
+@media (max-width: 1024px) {
     .nav-panel {
         transform: translateX(-100%);
     }
@@ -2469,10 +2479,53 @@ body {
     
     .main-content {
         margin-left: 0;
+        width: 100%;
     }
     
     .section {
         padding: 60px 40px;
+        width: 100%;
+    }
+}
+
+/* Responsive Design - Móviles */
+@media (max-width: 768px) {
+    /* Asegurar que no haya overflow horizontal */
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Ocultar pantalla de carga en móviles */
+    #loading-screen {
+        display: none !important;
+    }
+    
+    .nav-panel {
+        transform: translateX(-100%);
+        position: fixed;
+        z-index: 9999;
+    }
+    
+    .nav-panel.open {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 0;
+        position: relative;
+    }
+    
+    .section {
+        padding: 60px 20px;
+        width: 100%;
+        margin: 0 auto;
+        max-width: 100%;
+        box-sizing: border-box;
     }
     
     .hero-grid,
@@ -2480,6 +2533,10 @@ body {
     .contact-grid {
         grid-template-columns: 1fr;
         gap: 40px;
+        text-align: center;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
     }
     
     .skills-grid {
@@ -2502,8 +2559,11 @@ body {
 }
 
 @media (max-width: 768px) {
+    /* Hacer todas las secciones visibles en móviles para permitir scroll natural */
     .section {
         padding: 40px 20px;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
     }
     
     .section-title {
@@ -2512,10 +2572,21 @@ body {
     
     .hero-grid {
         text-align: center;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     
     .terminal-window {
         font-size: 0.8rem;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
     }
     
     .projects-grid,
