@@ -2589,6 +2589,20 @@ body {
         margin: 0 auto;
     }
     
+    /* Desactivar sticky positioning en móviles para evitar superposición */
+    .profile-card {
+        position: static !important;
+        top: auto !important;
+        margin-bottom: 40px;
+    }
+    
+    /* Mejorar disposición del about-grid en móviles */
+    .about-grid {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+        align-items: stretch;
+    }
+    
     .projects-grid,
     .lab-grid {
         grid-template-columns: 1fr;
